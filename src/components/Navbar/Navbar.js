@@ -10,9 +10,13 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { HiMenu } from "react-icons/hi";
 import { useHistory } from "react-router";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
+
   const history = useHistory();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0}>
@@ -46,9 +50,16 @@ const Navbar = () => {
           <Button onClick={() => history.push("/explore")} color="inherit">
             Explore
           </Button>
-          <Button onClick={() => history.push("/login")} color="inherit">
-            Login
-          </Button>
+          {/* Will add a logout confirmation later */}
+          {user?.email ? (
+            <Button onClick={logOut} color="inherit">
+              Logout
+            </Button>
+          ) : (
+            <Button onClick={() => history.push("/login")} color="inherit">
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

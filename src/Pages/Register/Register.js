@@ -1,19 +1,44 @@
 import {
   Button,
   Container,
+  FormHelperText,
   Grid,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import holderImage from "../../assets/login-pc.svg";
+import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
+  const { registerUser } = useAuth();
   const history = useHistory();
+
+  const [loginData, setLoginData] = useState({});
+  const [passError, setPassError] = useState(false);
+
+  const handleUserInput = (e) => {
+    const field = e.target.name;
+    const value = e.target.value;
+
+    const newLoginData = { ...loginData };
+    newLoginData[field] = value;
+    setLoginData(newLoginData);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (loginData.password !== loginData.passwordConfirm) {
+      setPassError(true);
+      return;
+    }
+    registerUser(loginData.email, loginData.password, loginData.name, history);
+    setPassError(false);
+  };
 
   return (
     <Container sx={{ mt: 10 }}>
@@ -25,36 +50,52 @@ const Register = () => {
         >
           Create an account
         </Typography>
+        {/* Will add a circular loader later */}
         <Grid container columns={{ xs: 1, md: 12 }} spacing={{ xs: 4, md: 6 }}>
           <Grid item xs={1} md={5}>
-            <form>
+            <form onSubmit={handleSubmit}>
               <Stack direction="column" spacing={3}>
                 <TextField
                   type="text"
                   label="Name"
                   variant="outlined"
                   name="name"
+                  required
+                  onBlur={handleUserInput}
                 />
                 <TextField
-                  type="text"
+                  type="email"
                   label="Email"
                   variant="outlined"
                   name="email"
+                  required
+                  onBlur={handleUserInput}
                 />
                 <TextField
-                  type="text"
+                  type="password"
                   label="Password"
                   variant="outlined"
                   name="password"
+                  required
+                  onBlur={handleUserInput}
                 />
                 <TextField
-                  type="text"
+                  type="password"
                   label="Repeat Password"
                   variant="outlined"
                   name="passwordConfirm"
+                  required
+                  onBlur={handleUserInput}
+                  error={passError}
                 />
+                {passError && (
+                  <FormHelperText sx={{ color: "red" }}>
+                    Password Doesn't Match
+                  </FormHelperText>
+                )}
               </Stack>
               <Button
+                type="submit"
                 sx={{ mt: 3, width: "50%" }}
                 variant="contained"
                 color="secondary"

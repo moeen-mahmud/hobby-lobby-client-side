@@ -1,19 +1,40 @@
 import {
   Button,
   Container,
+  FormHelperText,
   Grid,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 import holderImage from "../../assets/login-pc.svg";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+  const { authError, logInUser } = useAuth();
+  const [loginData, setLoginData] = useState({});
+
   const history = useHistory();
+  const location = useLocation();
+
+  const handleUserInput = (e) => {
+    const field = e.target.name;
+    const value = e.target.value;
+
+    const newLoginData = { ...loginData };
+    newLoginData[field] = value;
+    setLoginData(newLoginData);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    logInUser(loginData.email, loginData.password, location, history);
+  };
 
   return (
     <Container sx={{ mt: 10 }}>
@@ -27,22 +48,32 @@ const Login = () => {
         </Typography>
         <Grid container columns={{ xs: 1, md: 12 }} spacing={{ xs: 4, md: 6 }}>
           <Grid item xs={1} md={5}>
-            <form>
+            <form onSubmit={handleSubmit}>
               <Stack direction="column" spacing={3}>
                 <TextField
-                  type="text"
+                  type="email"
                   label="Email"
                   variant="outlined"
                   name="email"
+                  required
+                  onBlur={handleUserInput}
                 />
                 <TextField
-                  type="text"
+                  type="password"
                   label="Password"
                   variant="outlined"
                   name="password"
+                  required
+                  onBlur={handleUserInput}
                 />
               </Stack>
+              {authError && (
+                <FormHelperText sx={{ color: "red" }}>
+                  {authError}
+                </FormHelperText>
+              )}
               <Button
+                type="submit"
                 sx={{ mt: 3, width: "50%" }}
                 variant="contained"
                 color="secondary"
