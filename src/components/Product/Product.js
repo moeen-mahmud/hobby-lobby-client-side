@@ -1,12 +1,15 @@
 import { Button, Paper, Rating, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
 import React from "react";
-import { useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router";
 
 const Product = ({ product }) => {
   const location = useLocation();
+  const history = useHistory();
 
   const {
+    _id,
     productName,
     productImage,
     productShorDesc,
@@ -14,6 +17,14 @@ const Product = ({ product }) => {
     productPrice,
     productRating,
   } = product;
+
+  const handleOrder = (id) => {
+    axios.get(`http://localhost:5000/products/${id}`).then((res) => {
+      console.log(res.data);
+      history.push(`/purchase/${id}`);
+    });
+  };
+
   return (
     <Paper
       sx={{ p: 3, border: "2px solid #4caf50", borderRadius: "5px" }}
@@ -54,7 +65,11 @@ const Product = ({ product }) => {
         </Box>
       )}
       <Stack>
-        <Button variant="contained" color="secondary">
+        <Button
+          onClick={() => handleOrder(_id)}
+          variant="contained"
+          color="secondary"
+        >
           Order Now
         </Button>
       </Stack>

@@ -9,6 +9,7 @@ import NotFound from "./Pages/NotFound/NotFound";
 import { ThemeProvider } from "@emotion/react";
 import useCustomTheme from "./hooks/useCustomTheme";
 import AuthProvider from "./contexts/AuthProvider/AuthProvider";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
   const { theme } = useCustomTheme();
@@ -38,9 +39,9 @@ function App() {
                 <Dashboard></Dashboard>
               </Route>
               {/* TODO: This will become a dynamic and private route */}
-              <Route path="/purchase">
+              <PrivateRoute path="/purchase/:id">
                 <Purchase></Purchase>
-              </Route>
+              </PrivateRoute>
               <Route path="*">
                 <NotFound></NotFound>
               </Route>
