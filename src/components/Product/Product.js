@@ -48,7 +48,9 @@ const Product = ({ product }) => {
             </Typography>{" "}
             {productLongDesc}
           </Typography>
-          <Typography variant="h6">Price: ${productPrice}</Typography>
+          <Typography sx={{ fontWeight: 700, mt: 3 }} variant="h6">
+            Price: ${productPrice}
+          </Typography>
         </Box>
       )}
       <Stack>
