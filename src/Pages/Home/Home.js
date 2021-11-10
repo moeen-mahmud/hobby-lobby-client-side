@@ -1,16 +1,15 @@
-import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import React from "react";
-import bgBanner from "../../assets/bg-banner-main.png";
-import Navbar from "../../components/Navbar/Navbar";
 
-// const bgStyle = {};
+import { Box } from "@mui/system";
+
+import Navbar from "../../components/Navbar/Navbar";
+import Banner from "../../components/Banner/Banner";
 
 const Home = () => {
   return (
     <Box>
       <Navbar></Navbar>
-      <Typography variant="h3">This is home</Typography>
+      <Banner></Banner>
     </Box>
   );
 };

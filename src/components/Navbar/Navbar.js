@@ -14,8 +14,8 @@ import { useHistory } from "react-router";
 const Navbar = () => {
   const history = useHistory();
   return (
-    <Box sx={{ flexGrow: 1, mb: 4 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" elevation={0}>
         <Toolbar>
           <IconButton
             size="large"
