@@ -9,7 +9,7 @@ import bgBanner from "../../assets/bg-banner-main.png";
 
 // Banner style
 const bgStyle = {
-  height: "100vh",
+  height: "90vh",
   backgroundImage: `url(${bgBanner})`,
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
