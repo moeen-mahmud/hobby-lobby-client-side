@@ -35,9 +35,9 @@ function App() {
                 <Register></Register>
               </Route>
               {/* This is will become a private route */}
-              <Route path="/dashboard">
+              <PrivateRoute path="/dashboard">
                 <Dashboard></Dashboard>
-              </Route>
+              </PrivateRoute>
               {/* TODO: This will become a dynamic and private route */}
               <PrivateRoute path="/purchase/:id">
                 <Purchase></Purchase>

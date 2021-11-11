@@ -52,9 +52,17 @@ const Navbar = () => {
           </Button>
           {/* Will add a logout confirmation later */}
           {user?.email ? (
-            <Button onClick={logOut} color="inherit">
-              Logout
-            </Button>
+            <>
+              <Button
+                onClick={() => history.push("/dashboard")}
+                color="inherit"
+              >
+                Dashboard
+              </Button>
+              <Button onClick={logOut} color="inherit">
+                Logout
+              </Button>
+            </>
           ) : (
             <Button onClick={() => history.push("/login")} color="inherit">
               Login
