@@ -1,10 +1,11 @@
+import { Container, Typography } from "@mui/material";
 import React from "react";
 
 const Pay = () => {
   return (
-    <div>
-      <h1>This is pay page</h1>
-    </div>
+    <Container>
+      <Typography variant="h3">Payment Coming Soon...</Typography>
+    </Container>
   );
 };
 
