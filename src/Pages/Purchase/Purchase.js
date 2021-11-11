@@ -6,7 +6,6 @@ import {
   Fade,
   Grid,
   Modal,
-  Snackbar,
   Stack,
   TextField,
   Typography,
@@ -39,7 +38,6 @@ const Purchase = () => {
 
   const [order, setOrder] = useState({});
   const [openCancelModal, setOpenCancelModal] = useState(false);
-  const [openSnackBar, setOpenSnackBar] = useState(false);
 
   const history = useHistory();
 
@@ -75,17 +73,13 @@ const Purchase = () => {
       })
       .then((res) => {
         if (res.data.insertedId) {
-          setOpenSnackBar(true);
+          history.push("/dashboard");
         }
       });
   };
 
   const handleCloseCancelModal = () => {
     setOpenCancelModal(false);
-  };
-
-  const handleCloseSnackBar = () => {
-    setOpenSnackBar(false);
   };
 
   return (
@@ -234,7 +228,7 @@ const Purchase = () => {
         <Fade in={openCancelModal}>
           <Box sx={style}>
             <Alert sx={{ mb: 2 }} severity="warning">
-              This is a warning alert — check it out!
+              Want to cancel the order?
             </Alert>
             <Stack direction="row" justifyContent="flex-end" spacing={2}>
               <Button
@@ -255,19 +249,6 @@ const Purchase = () => {
           </Box>
         </Fade>
       </Modal>
-      <Snackbar
-        open={openSnackBar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackBar}
-      >
-        <Alert
-          onClose={handleCloseSnackBar}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          Order has been placed for review!
-        </Alert>
-      </Snackbar>
     </Container>
   );
 };
