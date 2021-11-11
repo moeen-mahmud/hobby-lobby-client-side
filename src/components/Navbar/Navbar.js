@@ -97,7 +97,14 @@ const Navbar = () => {
             component="div"
             sx={{ flexGrow: 1 }}
           >
-            Hobby Lobby
+            Hobby{" "}
+            <Typography
+              sx={{ color: "secondary.main" }}
+              variant="h4"
+              component="span"
+            >
+              Lobby
+            </Typography>
           </Typography>
           {/* Will Add icon  */}
           <Button onClick={() => history.push("/home")} color="inherit">
