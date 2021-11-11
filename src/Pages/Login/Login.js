@@ -42,10 +42,10 @@ const Login = () => {
 
     logInUser(loginData.email, loginData.password, location, history);
 
-    if (authError) {
-      setOpenSnackBar(true);
-    } else {
+    if (authError === "") {
       setErrorSnackBar(true);
+    } else {
+      setOpenSnackBar(true);
     }
   };
 

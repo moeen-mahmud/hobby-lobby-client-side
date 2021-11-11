@@ -8,17 +8,73 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import Backdrop from "@mui/material/Backdrop";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+
+// Material Icons
 import { HiMenu } from "react-icons/hi";
 import { useHistory } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import { Alert, Stack } from "@mui/material";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "#fefeff",
+  borderRadius: "5px",
+  boxShadow: 24,
+  p: 4,
+};
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
 
+  const [openModal, setOpenModal] = React.useState(false);
+
   const history = useHistory();
+
+  const handleLogOut = () => {
+    logOut();
+    setOpenModal(false);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={openModal}>
+          <Box sx={style}>
+            <Alert sx={{ mb: 2 }} severity="warning">
+              Want to log out?
+            </Alert>
+            <Stack direction="row" justifyContent="flex-end" spacing={2}>
+              <Button
+                onClick={() => setOpenModal(false)}
+                variant="contained"
+                color="secondary"
+              >
+                Nope
+              </Button>
+              <Button onClick={handleLogOut} variant="outlined" color="warning">
+                Yes
+              </Button>
+            </Stack>
+          </Box>
+        </Fade>
+      </Modal>
       <AppBar position="static" elevation={0}>
         <Toolbar>
           <IconButton
@@ -59,7 +115,7 @@ const Navbar = () => {
               >
                 Dashboard
               </Button>
-              <Button onClick={logOut} color="inherit">
+              <Button onClick={() => setOpenModal(true)} color="inherit">
                 Logout
               </Button>
             </>

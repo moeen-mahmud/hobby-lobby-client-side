@@ -46,11 +46,10 @@ const Register = () => {
 
     registerUser(loginData.email, loginData.password, loginData.name, history);
 
-    if (authError) {
-      setOpenSnackBar(true);
-      setPassError(false);
-    } else {
+    if (authError === "") {
       setErrorSnackBar(true);
+    } else {
+      setOpenSnackBar(true);
     }
   };
 
