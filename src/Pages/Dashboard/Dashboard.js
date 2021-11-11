@@ -46,7 +46,7 @@ function Dashboard(props) {
       <Toolbar />
       <Button
         onClick={() => history.push("/")}
-        sx={{ mt: -8, ml: 2 }}
+        sx={{ mt: -11, ml: 2 }}
         variant="outlined"
         startIcon={<HomeIcon />}
         color="secondary"
