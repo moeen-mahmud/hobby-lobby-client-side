@@ -4,7 +4,6 @@ import { Redirect, Route } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 
 function AdminRoute({ children, ...rest }) {
-  // const { user, admin, isLoading } = useAuth();
   const { user, admin, isLoading } = useAuth();
   if (isLoading) {
     return (
@@ -27,7 +26,7 @@ function AdminRoute({ children, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: "/",
+              pathname: "/dashboard",
               state: { from: location },
             }}
           />

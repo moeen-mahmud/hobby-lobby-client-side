@@ -1,7 +1,9 @@
 import {
+  Alert,
   Button,
   Container,
   Grid,
+  Snackbar,
   Stack,
   TextField,
   Typography,
@@ -11,18 +13,42 @@ import React, { useState } from "react";
 
 const MakeAdmin = () => {
   const [email, setEmail] = useState("");
+  const [openSnackBar, setOpenSnackBar] = useState(false);
 
   const handleMakeAdmin = (e) => {
     e.preventDefault();
 
     const user = { email };
     axios.put("http://localhost:5000/users", user).then((res) => {
-      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        handleOpenSnackBar();
+      }
     });
+  };
+
+  const handleOpenSnackBar = () => {
+    setOpenSnackBar(true);
+  };
+
+  const handleCloseSnackBar = () => {
+    setOpenSnackBar(false);
   };
 
   return (
     <Container>
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackBar}
+      >
+        <Alert
+          onClose={handleCloseSnackBar}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Admin created successfully
+        </Alert>
+      </Snackbar>
       <Grid container columns={{ xs: 1, md: 12 }}>
         <Grid item xs={12} md={5}>
           <Typography sx={{ mb: 3 }} variant="h4">
