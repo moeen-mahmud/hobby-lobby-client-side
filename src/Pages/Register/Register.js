@@ -1,8 +1,11 @@
 import {
+  Alert,
   Button,
+  CircularProgress,
   Container,
   FormHelperText,
   Grid,
+  Snackbar,
   Stack,
   TextField,
   Typography,
@@ -15,11 +18,15 @@ import holderImage from "../../assets/login-pc.svg";
 import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
-  const { registerUser } = useAuth();
+  const { registerUser, isLoading, authError } = useAuth();
   const history = useHistory();
 
   const [loginData, setLoginData] = useState({});
   const [passError, setPassError] = useState(false);
+
+  // Snackbar
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [errorSnackBar, setErrorSnackBar] = useState(false);
 
   const handleUserInput = (e) => {
     const field = e.target.name;
@@ -36,12 +43,45 @@ const Register = () => {
       setPassError(true);
       return;
     }
+
     registerUser(loginData.email, loginData.password, loginData.name, history);
-    setPassError(false);
+
+    if (authError) {
+      setOpenSnackBar(true);
+      setPassError(false);
+    } else {
+      setErrorSnackBar(true);
+    }
   };
 
   return (
     <Container sx={{ mt: 10 }}>
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={6000}
+        onClose={() => setOpenSnackBar(false)}
+      >
+        <Alert
+          onClose={() => setOpenSnackBar(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Register successfully!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={errorSnackBar}
+        autoHideDuration={6000}
+        onClose={() => setErrorSnackBar(false)}
+      >
+        <Alert
+          onClose={() => setErrorSnackBar(false)}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          Registration error!
+        </Alert>
+      </Snackbar>
       <Box>
         <Typography
           variant="h4"
@@ -53,70 +93,97 @@ const Register = () => {
         {/* Will add a circular loader later */}
         <Grid container columns={{ xs: 1, md: 12 }} spacing={{ xs: 4, md: 6 }}>
           <Grid item xs={1} md={5}>
-            <form onSubmit={handleSubmit}>
-              <Stack direction="column" spacing={3}>
-                <TextField
-                  type="text"
-                  label="Name"
-                  variant="outlined"
-                  name="name"
-                  required
-                  onBlur={handleUserInput}
-                />
-                <TextField
-                  type="email"
-                  label="Email"
-                  variant="outlined"
-                  name="email"
-                  required
-                  onBlur={handleUserInput}
-                />
-                <TextField
-                  type="password"
-                  label="Password"
-                  variant="outlined"
-                  name="password"
-                  required
-                  onBlur={handleUserInput}
-                />
-                <TextField
-                  type="password"
-                  label="Repeat Password"
-                  variant="outlined"
-                  name="passwordConfirm"
-                  required
-                  onBlur={handleUserInput}
-                  error={passError}
-                />
-                {passError && (
-                  <FormHelperText sx={{ color: "red" }}>
-                    Password Doesn't Match
-                  </FormHelperText>
-                )}
-              </Stack>
-              <Button
-                type="submit"
-                sx={{ mt: 3, width: "50%" }}
-                variant="contained"
-                color="secondary"
-              >
-                Sign Up
-              </Button>
-            </form>
-            <Box sx={{ mt: 1 }}>
-              <Typography variant="body1">
-                Already registered?
-                <Typography variant="body1" component="span">
+            {isLoading ? (
+              <CircularProgress
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "20%",
+                  color: "#4caf50",
+                }}
+              />
+            ) : (
+              <>
+                <form onSubmit={handleSubmit}>
+                  <Stack direction="column" spacing={3}>
+                    <TextField
+                      type="text"
+                      label="Name"
+                      variant="outlined"
+                      name="name"
+                      required
+                      onBlur={handleUserInput}
+                    />
+                    <TextField
+                      type="email"
+                      label="Email"
+                      variant="outlined"
+                      name="email"
+                      required
+                      onBlur={handleUserInput}
+                    />
+                    <TextField
+                      type="password"
+                      label="Password"
+                      variant="outlined"
+                      name="password"
+                      required
+                      onBlur={handleUserInput}
+                    />
+                    <TextField
+                      type="password"
+                      label="Repeat Password"
+                      variant="outlined"
+                      name="passwordConfirm"
+                      required
+                      onBlur={handleUserInput}
+                      error={passError}
+                    />
+                    {passError && (
+                      <FormHelperText sx={{ color: "red" }}>
+                        Password Doesn't Match
+                      </FormHelperText>
+                    )}
+                  </Stack>
+                  {authError && (
+                    <FormHelperText sx={{ color: "red" }}>
+                      {authError}
+                    </FormHelperText>
+                  )}
                   <Button
-                    onClick={() => history.push("/login")}
-                    variant="text"
+                    type="submit"
+                    sx={{ mt: 3, width: "50%" }}
+                    variant="contained"
                     color="secondary"
                   >
-                    Log In
+                    Sign Up
                   </Button>
-                </Typography>
-              </Typography>
-            </Box>
+                </form>
+                <Box sx={{ mt: 1 }}>
+                  <Typography variant="body1">
+                    Already registered?
+                    <Typography variant="body1" component="span">
+                      <Button
+                        onClick={() => history.push("/login")}
+                        variant="text"
+                        color="secondary"
+                      >
+                        Log In
+                      </Button>
+                    </Typography>
+                  </Typography>
+                </Box>
+                <Button
+                  onClick={() => history.push("/")}
+                  type="submit"
+                  sx={{ mt: 1, width: "50%" }}
+                  variant="outlined"
+                  color="secondary"
+                >
+                  Back to home
+                </Button>
+              </>
+            )}
           </Grid>
           <Grid item xs={1} md={6}>
             <img
