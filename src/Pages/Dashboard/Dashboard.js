@@ -13,6 +13,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Backdrop from "@mui/material/Backdrop";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 // Icons
 import MenuIcon from "@mui/icons-material/Menu";
@@ -44,8 +49,20 @@ import useAuth from "../../hooks/useAuth";
 
 const drawerWidth = 230;
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "#fefeff",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 function Dashboard(props) {
-  const { admin } = useAuth();
+  const { admin, logOut } = useAuth();
   // React Router
   const history = useHistory();
   let { path, url } = useRouteMatch();
@@ -54,12 +71,46 @@ function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  // Modal
+  const [openModal, setOpenModal] = React.useState(false);
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const drawer = (
     <div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={openModal}>
+          <Box sx={style}>
+            <Alert sx={{ mb: 2 }} severity="warning">
+              Want to log out?
+            </Alert>
+            <Stack direction="row" justifyContent="flex-end" spacing={2}>
+              <Button
+                onClick={() => setOpenModal(false)}
+                variant="contained"
+                color="secondary"
+              >
+                Nope
+              </Button>
+              <Button onClick={logOut} variant="outlined" color="warning">
+                Yes
+              </Button>
+            </Stack>
+          </Box>
+        </Fade>
+      </Modal>
       <Toolbar />
       <Button
         onClick={() => history.push("/")}
@@ -133,7 +184,7 @@ function Dashboard(props) {
             </ListItem>
           </>
         )}
-        <ListItem button>
+        <ListItem onClick={() => setOpenModal(true)} button>
           <ListItemIcon>
             <LogoutIcon style={{ color: "#4caf50" }} />
           </ListItemIcon>
