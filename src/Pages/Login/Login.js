@@ -1,11 +1,9 @@
 import {
-  Alert,
   Button,
   CircularProgress,
   Container,
   FormHelperText,
   Grid,
-  Snackbar,
   Stack,
   TextField,
   Typography,
@@ -20,10 +18,6 @@ import useAuth from "../../hooks/useAuth";
 const Login = () => {
   const { authError, logInUser, isLoading } = useAuth();
   const [loginData, setLoginData] = useState({});
-
-  // Snackbar
-  const [openSnackBar, setOpenSnackBar] = useState(false);
-  const [errorSnackBar, setErrorSnackBar] = useState(false);
 
   const history = useHistory();
   const location = useLocation();
@@ -41,42 +35,10 @@ const Login = () => {
     e.preventDefault();
 
     logInUser(loginData.email, loginData.password, location, history);
-
-    if (authError === "") {
-      setErrorSnackBar(true);
-    } else {
-      setOpenSnackBar(true);
-    }
   };
 
   return (
     <Container sx={{ mt: 10 }}>
-      <Snackbar
-        open={openSnackBar}
-        autoHideDuration={6000}
-        onClose={() => setOpenSnackBar(false)}
-      >
-        <Alert
-          onClose={() => setOpenSnackBar(false)}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          Login successfully!
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={errorSnackBar}
-        autoHideDuration={6000}
-        onClose={() => setErrorSnackBar(false)}
-      >
-        <Alert
-          onClose={() => setErrorSnackBar(false)}
-          severity="error"
-          sx={{ width: "100%" }}
-        >
-          Login error!
-        </Alert>
-      </Snackbar>
       <Box>
         <Typography
           variant="h4"

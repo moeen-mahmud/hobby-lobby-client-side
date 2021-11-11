@@ -1,11 +1,9 @@
 import {
-  Alert,
   Button,
   CircularProgress,
   Container,
   FormHelperText,
   Grid,
-  Snackbar,
   Stack,
   TextField,
   Typography,
@@ -24,10 +22,6 @@ const Register = () => {
   const [loginData, setLoginData] = useState({});
   const [passError, setPassError] = useState(false);
 
-  // Snackbar
-  const [openSnackBar, setOpenSnackBar] = useState(false);
-  const [errorSnackBar, setErrorSnackBar] = useState(false);
-
   const handleUserInput = (e) => {
     const field = e.target.name;
     const value = e.target.value;
@@ -45,42 +39,10 @@ const Register = () => {
     }
 
     registerUser(loginData.email, loginData.password, loginData.name, history);
-
-    if (authError === "") {
-      setErrorSnackBar(true);
-    } else {
-      setOpenSnackBar(true);
-    }
   };
 
   return (
     <Container sx={{ mt: 10 }}>
-      <Snackbar
-        open={openSnackBar}
-        autoHideDuration={6000}
-        onClose={() => setOpenSnackBar(false)}
-      >
-        <Alert
-          onClose={() => setOpenSnackBar(false)}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          Register successfully!
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={errorSnackBar}
-        autoHideDuration={6000}
-        onClose={() => setErrorSnackBar(false)}
-      >
-        <Alert
-          onClose={() => setErrorSnackBar(false)}
-          severity="error"
-          sx={{ width: "100%" }}
-        >
-          Registration error!
-        </Alert>
-      </Snackbar>
       <Box>
         <Typography
           variant="h4"
