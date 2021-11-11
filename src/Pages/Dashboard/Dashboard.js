@@ -39,10 +39,12 @@ import ManageOrders from "../Admin/ManageOrders/ManageOrders";
 import AddProduct from "../Admin/AddProduct/AddProduct";
 import MakeAdmin from "../Admin/MakeAdmin/MakeAdmin";
 import ManageProducts from "../Admin/ManageProducts/ManageProducts";
+import useAuth from "../../hooks/useAuth";
 
 const drawerWidth = 230;
 
 function Dashboard(props) {
+  const { admin } = useAuth();
   // React Router
   const history = useHistory();
   let { path, url } = useRouteMatch();
@@ -75,24 +77,61 @@ function Dashboard(props) {
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem onClick={() => history.push(`${url}/user-orders`)} button>
-          <ListItemIcon>
-            <ShoppingBasketIcon style={{ color: "#4caf50" }} />
-          </ListItemIcon>
-          <ListItemText primary="My Orders" />
-        </ListItem>
-        <ListItem onClick={() => history.push(`${url}/pay`)} button>
-          <ListItemIcon>
-            <PaymentIcon style={{ color: "#4caf50" }} />
-          </ListItemIcon>
-          <ListItemText primary="Pay" />
-        </ListItem>
-        <ListItem onClick={() => history.push(`${url}/review`)} button>
-          <ListItemIcon>
-            <RateReviewIcon style={{ color: "#4caf50" }} />
-          </ListItemIcon>
-          <ListItemText primary="Review" />
-        </ListItem>
+        {admin ? (
+          <>
+            <ListItem
+              onClick={() => history.push(`${url}/manage-orders`)}
+              button
+            >
+              <ListItemIcon>
+                <BuildCircleIcon style={{ color: "#4caf50" }} />
+              </ListItemIcon>
+              <ListItemText primary="Manage Orders" />
+            </ListItem>
+            <ListItem onClick={() => history.push(`${url}/add-product`)} button>
+              <ListItemIcon>
+                <AddCircleIcon style={{ color: "#4caf50" }} />
+              </ListItemIcon>
+              <ListItemText primary="Add Product" />
+            </ListItem>
+            <ListItem onClick={() => history.push(`${url}/make-admin`)} button>
+              <ListItemIcon>
+                <AdminPanelSettingsIcon style={{ color: "#4caf50" }} />
+              </ListItemIcon>
+              <ListItemText primary="Make Admin" />
+            </ListItem>
+            <ListItem
+              onClick={() => history.push(`${url}/manage-products`)}
+              button
+            >
+              <ListItemIcon>
+                <StoreMallDirectoryIcon style={{ color: "#4caf50" }} />
+              </ListItemIcon>
+              <ListItemText primary="Manage Product" />
+            </ListItem>
+          </>
+        ) : (
+          <>
+            <ListItem onClick={() => history.push(`${url}/user-orders`)} button>
+              <ListItemIcon>
+                <ShoppingBasketIcon style={{ color: "#4caf50" }} />
+              </ListItemIcon>
+              <ListItemText primary="My Orders" />
+            </ListItem>
+            <ListItem onClick={() => history.push(`${url}/pay`)} button>
+              <ListItemIcon>
+                <PaymentIcon style={{ color: "#4caf50" }} />
+              </ListItemIcon>
+              <ListItemText primary="Pay" />
+            </ListItem>
+            <ListItem onClick={() => history.push(`${url}/review`)} button>
+              <ListItemIcon>
+                <RateReviewIcon style={{ color: "#4caf50" }} />
+              </ListItemIcon>
+              <ListItemText primary="Review" />
+            </ListItem>
+          </>
+        )}
         <ListItem button>
           <ListItemIcon>
             <LogoutIcon style={{ color: "#4caf50" }} />
@@ -101,30 +140,6 @@ function Dashboard(props) {
         </ListItem>
       </List>
       <Divider />
-      <ListItem onClick={() => history.push(`${url}/manage-orders`)} button>
-        <ListItemIcon>
-          <BuildCircleIcon style={{ color: "#4caf50" }} />
-        </ListItemIcon>
-        <ListItemText primary="Manage Orders" />
-      </ListItem>
-      <ListItem onClick={() => history.push(`${url}/add-product`)} button>
-        <ListItemIcon>
-          <AddCircleIcon style={{ color: "#4caf50" }} />
-        </ListItemIcon>
-        <ListItemText primary="Add Product" />
-      </ListItem>
-      <ListItem onClick={() => history.push(`${url}/make-admin`)} button>
-        <ListItemIcon>
-          <AdminPanelSettingsIcon style={{ color: "#4caf50" }} />
-        </ListItemIcon>
-        <ListItemText primary="Make Admin" />
-      </ListItem>
-      <ListItem onClick={() => history.push(`${url}/manage-products`)} button>
-        <ListItemIcon>
-          <StoreMallDirectoryIcon style={{ color: "#4caf50" }} />
-        </ListItemIcon>
-        <ListItemText primary="Manage Product" />
-      </ListItem>
     </div>
   );
 

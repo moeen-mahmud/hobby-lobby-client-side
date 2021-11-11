@@ -14,6 +14,7 @@ initializeAuthentication();
 
 const useFirebase = () => {
   const [user, setUser] = useState({});
+  const [admin, setAdmin] = useState(false);
   const [authError, setAuthError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -76,6 +77,12 @@ const useFirebase = () => {
     return () => unsubscribed;
   }, [auth]);
 
+  useEffect(() => {
+    axios.get(`http://localhost:5000/users/${user.email}`).then((res) => {
+      setAdmin(res.data.admin);
+    });
+  }, [user.email]);
+
   const logOut = () => {
     setIsLoading(true);
     signOut(auth)
@@ -96,6 +103,7 @@ const useFirebase = () => {
 
   return {
     user,
+    admin,
     authError,
     isLoading,
     registerUser,
