@@ -73,7 +73,7 @@ const Purchase = () => {
       })
       .then((res) => {
         if (res.data.insertedId) {
-          history.push("/dashboard");
+          history.push("/dashboard/user-orders");
         }
       });
   };

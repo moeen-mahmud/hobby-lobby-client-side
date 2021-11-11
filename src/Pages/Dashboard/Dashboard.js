@@ -21,12 +21,26 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import StoreMallDirectoryIcon from "@mui/icons-material/StoreMallDirectory";
+import BuildCircleIcon from "@mui/icons-material/BuildCircle";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+
+// React Router
 import { useHistory, useRouteMatch, Switch, Route } from "react-router";
+
+// User pages
 import UserOrders from "../User/UserOrders/UserOrders";
 import Pay from "../User/Pay/Pay";
 import UserReviews from "../User/UserReviews/UserReviews";
+import DashboardHome from "../DashboardHome/DashboardHome";
+import ManageOrders from "../Admin/ManageOrders/ManageOrders";
+import AddProduct from "../Admin/AddProduct/AddProduct";
+import MakeAdmin from "../Admin/MakeAdmin/MakeAdmin";
+import ManageProducts from "../Admin/ManageProducts/ManageProducts";
 
-const drawerWidth = 220;
+const drawerWidth = 230;
 
 function Dashboard(props) {
   // React Router
@@ -57,6 +71,12 @@ function Dashboard(props) {
         {/* Will add a active class like nanote later */}
         <ListItem onClick={() => history.push(`${url}`)} button>
           <ListItemIcon>
+            <DashboardIcon style={{ color: "#4caf50" }} />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItem>
+        <ListItem onClick={() => history.push(`${url}/user-orders`)} button>
+          <ListItemIcon>
             <ShoppingBasketIcon style={{ color: "#4caf50" }} />
           </ListItemIcon>
           <ListItemText primary="My Orders" />
@@ -81,6 +101,30 @@ function Dashboard(props) {
         </ListItem>
       </List>
       <Divider />
+      <ListItem onClick={() => history.push(`${url}/manage-orders`)} button>
+        <ListItemIcon>
+          <BuildCircleIcon style={{ color: "#4caf50" }} />
+        </ListItemIcon>
+        <ListItemText primary="Manage Orders" />
+      </ListItem>
+      <ListItem onClick={() => history.push(`${url}/add-product`)} button>
+        <ListItemIcon>
+          <AddCircleIcon style={{ color: "#4caf50" }} />
+        </ListItemIcon>
+        <ListItemText primary="Add Product" />
+      </ListItem>
+      <ListItem onClick={() => history.push(`${url}/make-admin`)} button>
+        <ListItemIcon>
+          <AdminPanelSettingsIcon style={{ color: "#4caf50" }} />
+        </ListItemIcon>
+        <ListItemText primary="Make Admin" />
+      </ListItem>
+      <ListItem onClick={() => history.push(`${url}/manage-products`)} button>
+        <ListItemIcon>
+          <StoreMallDirectoryIcon style={{ color: "#4caf50" }} />
+        </ListItemIcon>
+        <ListItemText primary="Manage Product" />
+      </ListItem>
     </div>
   );
 
@@ -161,6 +205,9 @@ function Dashboard(props) {
         <Toolbar />
         <Switch>
           <Route exact path={path}>
+            <DashboardHome></DashboardHome>
+          </Route>
+          <Route path={`${path}/user-orders`}>
             <UserOrders></UserOrders>
           </Route>
           <Route path={`${path}/pay`}>
@@ -168,6 +215,18 @@ function Dashboard(props) {
           </Route>
           <Route path={`${path}/review`}>
             <UserReviews></UserReviews>
+          </Route>
+          <Route path={`${path}/manage-orders`}>
+            <ManageOrders></ManageOrders>
+          </Route>
+          <Route path={`${path}/add-product`}>
+            <AddProduct></AddProduct>
+          </Route>
+          <Route path={`${path}/make-admin`}>
+            <MakeAdmin></MakeAdmin>
+          </Route>
+          <Route path={`${path}/manage-products`}>
+            <ManageProducts></ManageProducts>
           </Route>
         </Switch>
       </Box>
