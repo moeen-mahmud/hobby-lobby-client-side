@@ -4,7 +4,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 
 import React from "react";
 
-const SingleOrder = ({ order }) => {
+const SingleOrder = ({ order, handleDelete }) => {
   return (
     <Grid item xs={1} md={4}>
       <Paper
@@ -38,7 +38,12 @@ const SingleOrder = ({ order }) => {
                 </Typography>
               )}
             </Typography>
-            <Button variant="outlined" color="warning" endIcon={<CancelIcon />}>
+            <Button
+              onClick={() => handleDelete(order._id)}
+              variant="outlined"
+              color="warning"
+              endIcon={<CancelIcon />}
+            >
               Cancel
             </Button>
           </Grid>
