@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Banner from "../../components/Banner/Banner";
 import ProductContainer from "../../components/ProductContainer/ProductContainer";
 import ReviewContainer from "../../components/ReviewContainer/ReviewContainer";
+import About from "../../components/About/About";
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <Banner></Banner>
       <ProductContainer></ProductContainer>
       <ReviewContainer></ReviewContainer>
+      <About></About>
     </Box>
   );
 };
