@@ -1,3 +1,4 @@
+// Modules from Material UI
 import {
   Button,
   CircularProgress,
@@ -9,19 +10,34 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+
+// React and necessary hook
 import React, { useState } from "react";
+
+// Hook from React Router
 import { useHistory } from "react-router-dom";
 
+// Register Image
 import holderImage from "../../assets/login-pc.svg";
+
+// Hooks for auth
 import useAuth from "../../hooks/useAuth";
 
+// Main Register Component
 const Register = () => {
+  // Getting info from the hook
   const { registerUser, isLoading, authError } = useAuth();
+
+  // History hook
   const history = useHistory();
 
+  // Storing login data in the state
   const [loginData, setLoginData] = useState({});
+
+  // State for showing pass mismatch error
   const [passError, setPassError] = useState(false);
 
+  // Function for handling user input
   const handleUserInput = (e) => {
     const field = e.target.name;
     const value = e.target.value;
@@ -31,6 +47,7 @@ const Register = () => {
     setLoginData(newLoginData);
   };
 
+  // Function for handling registration
   const handleSubmit = (e) => {
     e.preventDefault();
     if (loginData.password !== loginData.passwordConfirm) {
@@ -44,6 +61,7 @@ const Register = () => {
   return (
     <Container sx={{ mt: 10 }}>
       <Box>
+        {/* Section title */}
         <Typography
           variant="h4"
           component="h2"
@@ -51,10 +69,10 @@ const Register = () => {
         >
           Create an account
         </Typography>
-        {/* Will add a circular loader later */}
         <Grid container columns={{ xs: 1, md: 12 }} spacing={{ xs: 4, md: 6 }}>
           <Grid item xs={1} md={5}>
             {isLoading ? (
+              // Show if the state is loading
               <CircularProgress
                 sx={{
                   position: "absolute",
@@ -67,6 +85,7 @@ const Register = () => {
               <>
                 <form onSubmit={handleSubmit}>
                   <Stack direction="column" spacing={3}>
+                    {/* User name */}
                     <TextField
                       type="text"
                       label="Name"
@@ -75,6 +94,7 @@ const Register = () => {
                       required
                       onBlur={handleUserInput}
                     />
+                    {/* User email */}
                     <TextField
                       type="email"
                       label="Email"
@@ -83,6 +103,7 @@ const Register = () => {
                       required
                       onBlur={handleUserInput}
                     />
+                    {/* User password */}
                     <TextField
                       type="password"
                       label="Password"
@@ -91,6 +112,7 @@ const Register = () => {
                       required
                       onBlur={handleUserInput}
                     />
+                    {/* Password Confirmation */}
                     <TextField
                       type="password"
                       label="Repeat Password"
@@ -100,6 +122,7 @@ const Register = () => {
                       onBlur={handleUserInput}
                       error={passError}
                     />
+                    {/* Show if the password doesn't match with each other */}
                     {passError && (
                       <FormHelperText sx={{ color: "red" }}>
                         Password Doesn't Match
@@ -122,6 +145,7 @@ const Register = () => {
                 </form>
                 <Box sx={{ mt: 1 }}>
                   <Typography variant="body1">
+                    {/* Link to login page */}
                     Already registered?
                     <Typography variant="body1" component="span">
                       <Button
@@ -134,6 +158,7 @@ const Register = () => {
                     </Typography>
                   </Typography>
                 </Box>
+                {/* Backlink for going home */}
                 <Button
                   onClick={() => history.push("/")}
                   type="submit"
@@ -146,6 +171,7 @@ const Register = () => {
               </>
             )}
           </Grid>
+          {/* Register image */}
           <Grid item xs={1} md={6}>
             <img
               style={{ width: "60%", display: "block", margin: "0 auto" }}
