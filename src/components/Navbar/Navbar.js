@@ -19,10 +19,6 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-
-// React router
-import { useHistory } from "react-router";
-import useAuth from "../../hooks/useAuth";
 import {
   Alert,
   Divider,
@@ -36,6 +32,13 @@ import {
 } from "@mui/material";
 import { useTheme } from "@emotion/react";
 
+// React router
+import { useHistory } from "react-router";
+
+// Authentication hook
+import useAuth from "../../hooks/useAuth";
+
+// Modal style
 const style = {
   position: "absolute",
   top: "50%",
@@ -48,35 +51,46 @@ const style = {
   p: 4,
 };
 
+// Drawer width
 const drawerWidth = 220;
 
+// Main Navbar Component
 const Navbar = () => {
+  // Getting user and logout function from the hook
   const { user, logOut } = useAuth();
 
+  // Declaring breakpoint for mobile device
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+  // State for opening the drawer
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  // State for modal
   const [openModal, setOpenModal] = React.useState(false);
 
+  // History hook
   const history = useHistory();
 
+  // Handling the logout button
   const handleLogOut = () => {
     logOut();
     setOpenModal(false);
   };
 
+  // Drawer button toggler
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  // Drawer component
+  // Main Drawer Component
   const drawer = (
     <div>
+      {/* App Toolbar */}
       <Toolbar />
       <Divider />
       <List>
+        {/* Common List items  */}
         <ListItem onClick={() => history.push("/home")}>
           <ListItemIcon>
             <HomeIcon sx={{ color: "secondary.main" }} />
@@ -90,6 +104,7 @@ const Navbar = () => {
           <ListItemText primary="Explore" />
         </ListItem>
         {user?.email ? (
+          // Rendered for logged in user
           <>
             <ListItem onClick={() => history.push("/dashboard")}>
               <ListItemIcon>
@@ -105,6 +120,7 @@ const Navbar = () => {
             </ListItem>
           </>
         ) : (
+          // Login
           <ListItem onClick={() => history.push("/login")}>
             <ListItemIcon>
               <LoginIcon sx={{ color: "secondary.main" }} />
@@ -119,8 +135,10 @@ const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      {/* Main App Bar */}
       <AppBar position="static" elevation={0}>
         <Toolbar>
+          {/* Render only for mobile devices */}
           {isMobile && (
             <IconButton
               onClick={handleDrawerToggle}
@@ -133,7 +151,7 @@ const Navbar = () => {
               <MenuIcon />
             </IconButton>
           )}
-
+          {/* Site title */}
           <Typography
             onClick={() => history.push("/")}
             style={{
@@ -153,8 +171,8 @@ const Navbar = () => {
               Lobby
             </Typography>
           </Typography>
-          {/* Will Add icon  */}
           {!isMobile && (
+            // Render only for mobile devices
             <>
               <Button onClick={() => history.push("/home")} color="inherit">
                 Home
@@ -162,7 +180,7 @@ const Navbar = () => {
               <Button onClick={() => history.push("/explore")} color="inherit">
                 Explore
               </Button>
-              {/* Will add a logout confirmation later */}
+              {/* Render only for logged in user */}
               {user?.email ? (
                 <>
                   <Button
@@ -176,6 +194,7 @@ const Navbar = () => {
                   </Button>
                 </>
               ) : (
+                // Login Button
                 <Button onClick={() => history.push("/login")} color="inherit">
                   Login
                 </Button>
@@ -184,10 +203,11 @@ const Navbar = () => {
           )}
         </Toolbar>
       </AppBar>
+      {/* Drawer will render only for mobile devices */}
       {isMobile && (
         <>
+          {/* The Drawer Component */}
           <Drawer
-            // container={container}
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
@@ -219,6 +239,7 @@ const Navbar = () => {
           </Drawer>
         </>
       )}
+      {/* Modal */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -230,6 +251,7 @@ const Navbar = () => {
           timeout: 500,
         }}
       >
+        {/* Modal effect */}
         <Fade in={openModal}>
           <Box sx={style}>
             <Alert sx={{ mb: 2 }} severity="warning">
