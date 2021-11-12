@@ -1,7 +1,11 @@
+// Modules from Material UI
+// For creating custom theme
 import { createTheme } from "@mui/material";
 
+// The hook
 const useCustomTheme = () => {
   const theme = createTheme({
+    // Setting theme color paletter
     palette: {
       primary: {
         main: "#232832",
@@ -16,6 +20,7 @@ const useCustomTheme = () => {
         main: "#fefeff",
       },
     },
+    // Setting custom typography
     typography: {
       fontFamily: "'Poppins', sans-serif",
       fontWeightRegular: 400,
