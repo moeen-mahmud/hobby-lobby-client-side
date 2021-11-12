@@ -1,3 +1,4 @@
+// Modules from Material UI
 import {
   Alert,
   Container,
@@ -14,14 +15,25 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+
+// React and necessary hooks
 import React, { useEffect, useState } from "react";
+
+// Axios
 import axios from "axios";
+
+// Icons from Material UI
 import DeleteIcon from "@mui/icons-material/Delete";
 
+// Main Manage Products Component
 const ManageProducts = () => {
+  // Storing all products in the statee
   const [products, setProducts] = useState([]);
+
+  // State for snackbar
   const [openSnackBar, setOpenSnackBar] = useState(false);
 
+  // Fetching data
   useEffect(() => {
     axios
       .get("https://morning-scrubland-84603.herokuapp.com/products")
@@ -30,6 +42,7 @@ const ManageProducts = () => {
       });
   }, []);
 
+  // Function for deleting a product
   const handleDeleteProduct = (id) => {
     const confirmation = window.confirm("Want to delete this product?");
     if (confirmation) {
@@ -41,12 +54,13 @@ const ManageProducts = () => {
               (product) => product._id !== id
             );
             setProducts(newProducts);
-            setOpenSnackBar(true);
+            setOpenSnackBar(true); // Snackbar
           }
         });
     }
   };
 
+  // For closing the Snackbar
   const handleCloseSnackBar = () => {
     setOpenSnackBar(false);
   };
@@ -54,12 +68,14 @@ const ManageProducts = () => {
   return (
     <Container>
       <Box>
+        {/* Section title */}
         <Typography variant="h4" mb={3}>
           Manage all products
         </Typography>
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
+              {/* Table Headers */}
               <TableRow>
                 <TableCell>Product Image</TableCell>
                 <TableCell align="left">Product Name</TableCell>
@@ -70,6 +86,7 @@ const ManageProducts = () => {
               </TableRow>
             </TableHead>
             <TableBody>
+              {/* Map through all products and set them as a table cell */}
               {products.map((product) => (
                 <TableRow
                   key={product._id}
@@ -89,7 +106,7 @@ const ManageProducts = () => {
                   <TableCell align="left">
                     <Tooltip title="Delete the product">
                       <IconButton
-                        onClick={() => handleDeleteProduct(product._id)}
+                        onClick={() => handleDeleteProduct(product._id)} // Delete handler
                       >
                         <DeleteIcon sx={{ color: "accent.main" }} />
                       </IconButton>
@@ -101,6 +118,7 @@ const ManageProducts = () => {
           </Table>
         </TableContainer>
       </Box>
+      {/* Snackbar */}
       <Snackbar
         open={openSnackBar}
         autoHideDuration={6000}
