@@ -1,3 +1,4 @@
+// Modules from Material UI
 import {
   Alert,
   Backdrop,
@@ -11,14 +12,24 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+
+// Axios
 import axios from "axios";
+
+// React and necessary hooks
 import React, { useEffect, useState } from "react";
+
+// Hooks from React Router
 import { useHistory, useParams } from "react-router";
+
+// Hooks for getting auth info
 import useAuth from "../../hooks/useAuth";
 
+// Icons from React Icons
 import { FcBinoculars } from "react-icons/fc";
 import { FcRating } from "react-icons/fc";
 
+// Styles for Modal
 const style = {
   position: "absolute",
   top: "50%",
@@ -31,16 +42,27 @@ const style = {
   p: 4,
 };
 
+// Main Purchase Component
 const Purchase = () => {
+  // Getting the specific product id
   const { id } = useParams();
+
+  // Getting user info from the hook
   const { user } = useAuth();
+
+  // Storing user info in the state
   const [userInfo, setUserInfo] = useState({});
 
+  // Storing the order in the state
   const [order, setOrder] = useState({});
+
+  // State for Cancellation Modal
   const [openCancelModal, setOpenCancelModal] = useState(false);
 
+  // Using history hook
   const history = useHistory();
 
+  // Getting the specific product by id
   useEffect(() => {
     axios
       .get(`https://morning-scrubland-84603.herokuapp.com/products/${id}`)
@@ -49,6 +71,7 @@ const Purchase = () => {
       });
   }, [id]);
 
+  // Getting order related user info
   const handleUserInfo = (e) => {
     const field = e.target.name;
     const value = e.target.value;
@@ -58,9 +81,11 @@ const Purchase = () => {
     setUserInfo(newUserInfo);
   };
 
+  // Function for placing order
   const handlePlaceOrder = (e) => {
     e.preventDefault();
 
+    // POST request
     axios
       .post("https://morning-scrubland-84603.herokuapp.com/orders", {
         name: user.displayName,
@@ -79,12 +104,14 @@ const Purchase = () => {
       });
   };
 
+  // Closing the Modal
   const handleCloseCancelModal = () => {
     setOpenCancelModal(false);
   };
 
   return (
     <Container>
+      {/* Backlink for home */}
       <Button
         onClick={() => history.push("/explore")}
         sx={{ mt: 1 }}
@@ -93,6 +120,7 @@ const Purchase = () => {
       >
         Back to explore
       </Button>
+      {/* Section title */}
       <Typography
         sx={{ mt: 3, textAlign: "center" }}
         variant="h4"
@@ -105,6 +133,7 @@ const Purchase = () => {
           <Grid item xs={1} md={4}>
             <form onSubmit={handlePlaceOrder}>
               <Stack direction="column" spacing={3}>
+                {/* User name */}
                 <TextField
                   type="text"
                   defaultValue={user.displayName}
@@ -112,6 +141,7 @@ const Purchase = () => {
                   label="Name"
                   disabled
                 />
+                {/* User email */}
                 <TextField
                   type="email"
                   defaultValue={user.email}
@@ -119,6 +149,7 @@ const Purchase = () => {
                   label="Email"
                   disabled
                 />
+                {/* Shipping address */}
                 <TextField
                   type="text"
                   variant="outlined"
@@ -130,6 +161,7 @@ const Purchase = () => {
                   required
                   onBlur={handleUserInfo}
                 />
+                {/* User phone */}
                 <TextField
                   type="number"
                   variant="outlined"
@@ -142,9 +174,11 @@ const Purchase = () => {
               </Stack>
               <Box sx={{ mt: 3 }}>
                 <Stack direction="row" spacing={3}>
+                  {/* For placing the order */}
                   <Button type="submit" variant="contained" color="secondary">
                     Place Order
                   </Button>
+                  {/* For cancelling the order */}
                   <Button
                     onClick={() => setOpenCancelModal(true)}
                     variant="outlined"
@@ -157,6 +191,7 @@ const Purchase = () => {
             </form>
           </Grid>
           <Grid item xs={1} md={8}>
+            {/* Product information column */}
             <Box>
               <Grid
                 container
@@ -164,6 +199,7 @@ const Purchase = () => {
                 spacing={{ xs: 2, md: 2 }}
               >
                 <Grid item xs={1} md={4}>
+                  {/* Product image */}
                   <img
                     style={{
                       width: "80%",
@@ -174,10 +210,12 @@ const Purchase = () => {
                     alt={order.productName}
                   />
                 </Grid>
+                {/* Product name */}
                 <Grid item xs={1} md={8}>
                   <Typography variant="h4" component="h5">
                     {order.productName}
                   </Typography>
+                  {/* Product info */}
                   <Typography
                     sx={{ color: "secondary.main", mt: 3 }}
                     variant="h6"
@@ -199,11 +237,13 @@ const Purchase = () => {
                       gap: "1rem",
                     }}
                   >
+                    {/* Product price */}
                     <Typography variant="h6" component="span">
                       Price: ${order.productPrice}
                     </Typography>
                     <Stack direction="row" spacing={1} alignItems="center">
                       <FcRating />
+                      {/* Showing the product rating */}
                       <Typography variant="body1" component="span">
                         {order.productRating}/5{" "}
                       </Typography>
@@ -215,6 +255,7 @@ const Purchase = () => {
           </Grid>
         </Grid>
       </Box>
+      {/* Modal for cancellation confirm */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
