@@ -1,13 +1,23 @@
-import { Alert, Container, Grid, Snackbar } from "@mui/material";
+import {
+  Alert,
+  Container,
+  Grid,
+  Snackbar,
+  Typography,
+  Button,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import SingleOrder from "../../../components/SingleOrder/SingleOrder";
 import useAuth from "../../../hooks/useAuth";
+import { useHistory } from "react-router-dom";
 
 const UserOrders = () => {
   const { user } = useAuth();
   const [orders, setOrders] = useState([]);
+
+  const history = useHistory();
 
   const [openSnackBar, setOpenSnackBar] = useState(false);
 
@@ -43,15 +53,36 @@ const UserOrders = () => {
   return (
     <Container>
       <Box>
-        <Grid container columns={{ xs: 1, md: 12 }} spacing={{ xs: 4, md: 6 }}>
-          {orders.map((order) => (
-            <SingleOrder
-              key={order._id}
-              order={order}
-              handleDelete={handleDelete}
-            ></SingleOrder>
-          ))}
-        </Grid>
+        {orders.length === 0 ? (
+          <>
+            <Typography variant="h4">You have no orders</Typography>
+            <Typography variant="subtitle1" color="text.secondary">
+              Order something amazing with us!
+            </Typography>
+            <Button
+              onClick={() => history.push("/explore")}
+              sx={{ mt: 2 }}
+              variant="outlined"
+              color="secondary"
+            >
+              Explore now!
+            </Button>
+          </>
+        ) : (
+          <Grid
+            container
+            columns={{ xs: 1, md: 12 }}
+            spacing={{ xs: 4, md: 6 }}
+          >
+            {orders.map((order) => (
+              <SingleOrder
+                key={order._id}
+                order={order}
+                handleDelete={handleDelete}
+              ></SingleOrder>
+            ))}
+          </Grid>
+        )}
       </Box>
       <Snackbar
         open={openSnackBar}
