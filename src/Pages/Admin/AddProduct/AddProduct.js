@@ -1,3 +1,4 @@
+// Modules from Material UI
 import {
   Button,
   Container,
@@ -8,16 +9,28 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+
+// Axios
 import axios from "axios";
+
+// Modules and hooks from React
 import React, { useState } from "react";
+
+// Hook from React Router
 import { useHistory } from "react-router";
 
+// Main Add Product component
 const AddProduct = () => {
+  // Store the product in the state
   const [product, setProduct] = useState({});
+
+  // State for storing rating value
   const [ratingValue, setRatingValue] = useState(0);
 
+  // Using history hook
   const history = useHistory();
 
+  // Getting the product info
   const handleProductInfo = (e) => {
     const field = e.target.name;
     const value = e.target.value;
@@ -27,9 +40,11 @@ const AddProduct = () => {
     setProduct(newProductInfo);
   };
 
+  // Function for adding a product in database
   const handleAddProduct = (e) => {
     e.preventDefault();
 
+    // Set the request
     axios
       .post("https://morning-scrubland-84603.herokuapp.com/products", {
         productName: product.productName,
@@ -52,6 +67,7 @@ const AddProduct = () => {
       <Box>
         <Grid container columns={{ xs: 1, md: 12 }}>
           <Grid item xs={1} md={6}>
+            {/* Section title */}
             <Box
               sx={{ display: "flex", flexDirection: "column", gap: 1, mb: 4 }}
             >
@@ -61,6 +77,7 @@ const AddProduct = () => {
               </Typography>
             </Box>
             <form onSubmit={handleAddProduct}>
+              {/* Getting product name */}
               <Stack direction="column" spacing={3}>
                 <TextField
                   variant="outlined"
@@ -69,6 +86,7 @@ const AddProduct = () => {
                   required
                   onBlur={handleProductInfo}
                 />
+                {/* Getting product image */}
                 <TextField
                   variant="outlined"
                   name="productImage"
@@ -76,6 +94,7 @@ const AddProduct = () => {
                   required
                   onBlur={handleProductInfo}
                 />
+                {/* Getting short description */}
                 <TextField
                   variant="outlined"
                   name="productShorDesc"
@@ -83,6 +102,7 @@ const AddProduct = () => {
                   required
                   onBlur={handleProductInfo}
                 />
+                {/* Getting long Desc */}
                 <TextField
                   variant="outlined"
                   name="productLongDesc"
@@ -90,6 +110,7 @@ const AddProduct = () => {
                   required
                   onBlur={handleProductInfo}
                 />
+                {/* Product price */}
                 <TextField
                   variant="outlined"
                   name="productPrice"
@@ -97,6 +118,7 @@ const AddProduct = () => {
                   required
                   onBlur={handleProductInfo}
                 />
+                {/* Rating component */}
                 <Stack direction="column" spacing={1}>
                   <Typography variant="subtitle1" component="legend">
                     Product Rating
@@ -111,13 +133,14 @@ const AddProduct = () => {
                   />
                 </Stack>
               </Stack>
+              {/* Add Button */}
               <Button
                 sx={{ mt: 3, minWidth: "200px" }}
                 type="submit"
                 variant="contained"
                 color="secondary"
               >
-                Add
+                Add Product
               </Button>
             </form>
           </Grid>
