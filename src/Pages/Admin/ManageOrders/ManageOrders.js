@@ -49,6 +49,22 @@ const ManageOrders = () => {
     }
   };
 
+  const handleUpdateStatus = (id) => {
+    const confirmation = window.confirm("Want to update the order status?");
+    if (confirmation) {
+      axios
+        .put(`http://localhost:5000/orders/${id}`, {
+          status: "Shipped",
+        })
+        .then((res) => {
+          if (res.data.modifiedCount > 0) {
+            window.alert("Order updated successfully!");
+            window.location.reload();
+          }
+        });
+    }
+  };
+
   const handleCloseSnackBar = () => {
     setOpenSnackBar(false);
   };
@@ -100,15 +116,19 @@ const ManageOrders = () => {
                   <TableCell>
                     <Stack direction="row" spacing={1}>
                       <Tooltip title="Update Order Status">
-                        <IconButton>
-                          {order.status === "Pending" ? (
+                        {order.status === "Pending" ? (
+                          <IconButton
+                            onClick={() => handleUpdateStatus(order._id)}
+                          >
                             <IndeterminateCheckBoxIcon
                               sx={{ color: "#f57c00" }}
                             />
-                          ) : (
+                          </IconButton>
+                        ) : (
+                          <IconButton>
                             <CheckBoxIcon color="secondary" />
-                          )}
-                        </IconButton>
+                          </IconButton>
+                        )}
                       </Tooltip>
                       <Tooltip title="Delete Order">
                         <IconButton
