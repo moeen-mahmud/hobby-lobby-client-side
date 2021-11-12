@@ -13,10 +13,28 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 
 // Material Icons
-import { HiMenu } from "react-icons/hi";
+import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from "@mui/icons-material/Home";
+import ExploreIcon from "@mui/icons-material/Explore";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+
+// React router
 import { useHistory } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import { Alert, Stack } from "@mui/material";
+import {
+  Alert,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Stack,
+  useMediaQuery,
+} from "@mui/material";
+import { useTheme } from "@emotion/react";
 
 const style = {
   position: "absolute",
@@ -30,8 +48,15 @@ const style = {
   p: 4,
 };
 
+const drawerWidth = 220;
+
 const Navbar = () => {
   const { user, logOut } = useAuth();
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -42,8 +67,158 @@ const Navbar = () => {
     setOpenModal(false);
   };
 
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  // Drawer component
+  const drawer = (
+    <div>
+      <Toolbar />
+      <Divider />
+      <List>
+        <ListItem onClick={() => history.push("/home")}>
+          <ListItemIcon>
+            <HomeIcon sx={{ color: "secondary.main" }} />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem onClick={() => history.push("/explore")}>
+          <ListItemIcon>
+            <ExploreIcon sx={{ color: "secondary.main" }} />
+          </ListItemIcon>
+          <ListItemText primary="Explore" />
+        </ListItem>
+        {user?.email ? (
+          <>
+            <ListItem onClick={() => history.push("/dashboard")}>
+              <ListItemIcon>
+                <DashboardIcon sx={{ color: "secondary.main" }} />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+            </ListItem>
+            <ListItem onClick={() => setOpenModal(true)}>
+              <ListItemIcon>
+                <LogoutIcon sx={{ color: "secondary.main" }} />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItem>
+          </>
+        ) : (
+          <ListItem onClick={() => history.push("/login")}>
+            <ListItemIcon>
+              <LoginIcon sx={{ color: "secondary.main" }} />
+            </ListItemIcon>
+            <ListItemText primary="Login" />
+          </ListItem>
+        )}
+      </List>
+      <Divider />
+    </div>
+  );
+
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" elevation={0}>
+        <Toolbar>
+          {isMobile && (
+            <IconButton
+              onClick={handleDrawerToggle}
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+
+          <Typography
+            onClick={() => history.push("/")}
+            style={{
+              fontFamily: "'Comfortaa', cursive",
+              cursor: "pointer",
+            }}
+            variant="h5"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          >
+            Hobby{" "}
+            <Typography
+              sx={{ color: "secondary.main" }}
+              variant="h5"
+              component="span"
+            >
+              Lobby
+            </Typography>
+          </Typography>
+          {/* Will Add icon  */}
+          {!isMobile && (
+            <>
+              <Button onClick={() => history.push("/home")} color="inherit">
+                Home
+              </Button>
+              <Button onClick={() => history.push("/explore")} color="inherit">
+                Explore
+              </Button>
+              {/* Will add a logout confirmation later */}
+              {user?.email ? (
+                <>
+                  <Button
+                    onClick={() => history.push("/dashboard")}
+                    color="inherit"
+                  >
+                    Dashboard
+                  </Button>
+                  <Button onClick={() => setOpenModal(true)} color="inherit">
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Button onClick={() => history.push("/login")} color="inherit">
+                  Login
+                </Button>
+              )}
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+      {isMobile && (
+        <>
+          <Drawer
+            // container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+          >
+            {drawer}
+          </Drawer>
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+            open
+          >
+            {drawer}
+          </Drawer>
+        </>
+      )}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -75,64 +250,6 @@ const Navbar = () => {
           </Box>
         </Fade>
       </Modal>
-      <AppBar position="static" elevation={0}>
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <HiMenu />
-          </IconButton>
-          <Typography
-            onClick={() => history.push("/")}
-            style={{
-              fontFamily: "'Comfortaa', cursive",
-              fontSize: "1.5rem",
-              cursor: "pointer",
-            }}
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1 }}
-          >
-            Hobby{" "}
-            <Typography
-              sx={{ color: "secondary.main" }}
-              variant="h4"
-              component="span"
-            >
-              Lobby
-            </Typography>
-          </Typography>
-          {/* Will Add icon  */}
-          <Button onClick={() => history.push("/home")} color="inherit">
-            Home
-          </Button>
-          <Button onClick={() => history.push("/explore")} color="inherit">
-            Explore
-          </Button>
-          {/* Will add a logout confirmation later */}
-          {user?.email ? (
-            <>
-              <Button
-                onClick={() => history.push("/dashboard")}
-                color="inherit"
-              >
-                Dashboard
-              </Button>
-              <Button onClick={() => setOpenModal(true)} color="inherit">
-                Logout
-              </Button>
-            </>
-          ) : (
-            <Button onClick={() => history.push("/login")} color="inherit">
-              Login
-            </Button>
-          )}
-        </Toolbar>
-      </AppBar>
     </Box>
   );
 };

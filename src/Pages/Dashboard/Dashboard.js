@@ -80,37 +80,6 @@ function Dashboard(props) {
 
   const drawer = (
     <div>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={openModal}>
-          <Box sx={style}>
-            <Alert sx={{ mb: 2 }} severity="warning">
-              Want to log out?
-            </Alert>
-            <Stack direction="row" justifyContent="flex-end" spacing={2}>
-              <Button
-                onClick={() => setOpenModal(false)}
-                variant="contained"
-                color="secondary"
-              >
-                Nope
-              </Button>
-              <Button onClick={logOut} variant="outlined" color="warning">
-                Yes
-              </Button>
-            </Stack>
-          </Box>
-        </Fade>
-      </Modal>
       <Toolbar />
       <Button
         onClick={() => history.push("/")}
@@ -297,6 +266,37 @@ function Dashboard(props) {
           </AdminRoute>
         </Switch>
       </Box>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={openModal}>
+          <Box sx={style}>
+            <Alert sx={{ mb: 2 }} severity="warning">
+              Want to log out?
+            </Alert>
+            <Stack direction="row" justifyContent="flex-end" spacing={2}>
+              <Button
+                onClick={() => setOpenModal(false)}
+                variant="contained"
+                color="secondary"
+              >
+                Nope
+              </Button>
+              <Button onClick={logOut} variant="outlined" color="warning">
+                Yes
+              </Button>
+            </Stack>
+          </Box>
+        </Fade>
+      </Modal>
     </Box>
   );
 }
