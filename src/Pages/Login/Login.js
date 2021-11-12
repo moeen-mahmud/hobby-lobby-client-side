@@ -1,3 +1,4 @@
+// Modules from Material UI
 import {
   Button,
   CircularProgress,
@@ -9,19 +10,32 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+
+// React and necessary hook
 import React, { useState } from "react";
+
+// Hooks from React Router
 import { useHistory, useLocation } from "react-router-dom";
 
+// Login image
 import holderImage from "../../assets/login-pc.svg";
+
+// Hooks for managing auth
 import useAuth from "../../hooks/useAuth";
 
+// Main Login Component
 const Login = () => {
+  // Getting auth related data
   const { authError, logInUser, isLoading } = useAuth();
+
+  // Storing login data in the state
   const [loginData, setLoginData] = useState({});
 
+  // Using hooks
   const history = useHistory();
   const location = useLocation();
 
+  // Getting user info
   const handleUserInput = (e) => {
     const field = e.target.name;
     const value = e.target.value;
@@ -31,6 +45,7 @@ const Login = () => {
     setLoginData(newLoginData);
   };
 
+  // Function for handling user login
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -40,6 +55,7 @@ const Login = () => {
   return (
     <Container sx={{ mt: 10 }}>
       <Box>
+        {/* Section header */}
         <Typography
           variant="h4"
           component="h2"
@@ -50,6 +66,7 @@ const Login = () => {
         <Grid container columns={{ xs: 1, md: 12 }} spacing={{ xs: 4, md: 6 }}>
           <Grid item xs={1} md={5}>
             {isLoading ? (
+              // Show when loading the auth state
               <CircularProgress
                 sx={{
                   position: "absolute",
@@ -62,6 +79,7 @@ const Login = () => {
               <>
                 <form onSubmit={handleSubmit}>
                   <Stack direction="column" spacing={3}>
+                    {/* User email */}
                     <TextField
                       type="email"
                       label="Email"
@@ -70,6 +88,7 @@ const Login = () => {
                       required
                       onBlur={handleUserInput}
                     />
+                    {/* User password */}
                     <TextField
                       type="password"
                       label="Password"
@@ -79,6 +98,7 @@ const Login = () => {
                       onBlur={handleUserInput}
                     />
                   </Stack>
+                  {/* Show when firebsae throw error */}
                   {authError && (
                     <FormHelperText sx={{ color: "red" }}>
                       {authError}
@@ -94,6 +114,7 @@ const Login = () => {
                   </Button>
                 </form>
                 <Box sx={{ mt: 1 }}>
+                  {/* For registering */}
                   <Typography variant="body1">
                     Don't have an account?
                     <Typography variant="body1" component="span">
@@ -107,6 +128,7 @@ const Login = () => {
                     </Typography>
                   </Typography>
                 </Box>
+                {/* Home backlink */}
                 <Button
                   onClick={() => history.push("/")}
                   type="submit"
@@ -119,6 +141,7 @@ const Login = () => {
               </>
             )}
           </Grid>
+          {/* Login Image */}
           <Grid item xs={1} md={6}>
             <img
               style={{ width: "60%", display: "block", margin: "0 auto" }}
