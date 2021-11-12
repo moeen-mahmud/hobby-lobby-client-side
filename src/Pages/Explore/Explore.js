@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material";
+import { CircularProgress, Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -39,17 +39,28 @@ const Explore = () => {
         >
           We offer the best budget friendly gaming chairs
         </Typography>
-        <Box sx={{ mt: 8 }}>
-          <Masonry
-            breakpointCols={breakpoints}
-            className="my-masonry-grid"
-            columnClassName="my-masonry-grid_column"
-          >
-            {products.map((product) => (
-              <Product key={product._id} product={product}></Product>
-            ))}
-          </Masonry>
-        </Box>
+        {products.length === 0 ? (
+          <CircularProgress
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              color: "#4caf50",
+            }}
+          />
+        ) : (
+          <Box sx={{ mt: 8 }}>
+            <Masonry
+              breakpointCols={breakpoints}
+              className="my-masonry-grid"
+              columnClassName="my-masonry-grid_column"
+            >
+              {products.map((product) => (
+                <Product key={product._id} product={product}></Product>
+              ))}
+            </Masonry>
+          </Box>
+        )}
       </Container>
     </Box>
   );
