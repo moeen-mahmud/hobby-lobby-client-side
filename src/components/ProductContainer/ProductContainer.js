@@ -1,4 +1,5 @@
-import { Container, Typography } from "@mui/material";
+import { useTheme } from "@emotion/react";
+import { Container, Typography, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -18,6 +19,9 @@ const ProductContainer = () => {
   const location = useLocation();
   const homeLocation = location.pathname === "/" || "home";
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   useEffect(() => {
     axios
       .get("https://morning-scrubland-84603.herokuapp.com/products")
@@ -28,14 +32,38 @@ const ProductContainer = () => {
 
   return (
     <Container sx={{ my: 15, textAlign: "center" }}>
-      {location.pathname === "/" && (
-        <Typography variant="h3" component="h2" sx={{ fontWeight: 700, mb: 8 }}>
-          We have some{" "}
-          <Typography variant="h3" component="span" color="secondary.main">
-            Great Deals!
-          </Typography>
-        </Typography>
+      {isMobile ? (
+        <>
+          {location.pathname === "/" && (
+            <Typography
+              variant="h5"
+              component="h2"
+              sx={{ fontWeight: 700, mb: 8 }}
+            >
+              We have some{" "}
+              <Typography variant="h3" component="span" color="secondary.main">
+                Great Deals!
+              </Typography>
+            </Typography>
+          )}
+        </>
+      ) : (
+        <>
+          {location.pathname === "/" && (
+            <Typography
+              variant="h3"
+              component="h2"
+              sx={{ fontWeight: 700, mb: 8 }}
+            >
+              We have some{" "}
+              <Typography variant="h3" component="span" color="secondary.main">
+                Great Deals!
+              </Typography>
+            </Typography>
+          )}
+        </>
       )}
+
       <Box>
         {homeLocation && (
           <Masonry
