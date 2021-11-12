@@ -1,19 +1,33 @@
+// Modules from Material UI
 import { CircularProgress, Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+
+// Axios
 import axios from "axios";
+
+// React and necessary hooks
 import React, { useEffect, useState } from "react";
+
+// Necessary components
 import Navbar from "../../components/Navbar/Navbar";
-import Masonry from "react-masonry-css";
 import Product from "../../components/Product/Product";
 
+// React Masonry CSS
+import Masonry from "react-masonry-css";
+
+// Breakpoints for different devices
 const breakpoints = {
   default: 3,
   1100: 2,
   700: 1,
 };
 
+// Main Explore Component
 const Explore = () => {
+  // Storing all products in the state
   const [products, setProducts] = useState([]);
+
+  // Fetching products for database
   useEffect(() => {
     axios
       .get("https://morning-scrubland-84603.herokuapp.com/products")
@@ -21,10 +35,13 @@ const Explore = () => {
         setProducts(res.data);
       });
   }, []);
+
   return (
     <Box>
+      {/* Navbar */}
       <Navbar></Navbar>
       <Container sx={{ mt: 5 }}>
+        {/* Section title */}
         <Typography
           sx={{ textAlign: "center", fontWeight: 700 }}
           variant="h3"
@@ -32,6 +49,7 @@ const Explore = () => {
         >
           Explore more from us!
         </Typography>
+        {/* Section subtitle */}
         <Typography
           variant="h6"
           component="p"
@@ -39,7 +57,7 @@ const Explore = () => {
         >
           We offer the best budget friendly gaming chairs
         </Typography>
-        {products.length === 0 ? (
+        {products.length === 0 ? ( // Show while fetching data
           <CircularProgress
             sx={{
               position: "absolute",
