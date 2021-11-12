@@ -99,6 +99,11 @@ const Footer = () => {
             </List>
           </Grid>
         </Grid>
+        <Box sx={{ mt: 4, textAlign: "center" }}>
+          <Typography color="text.secondary" variant="caption">
+            copyright &copy; Hobby Lobby 2021
+          </Typography>
+        </Box>
       </Container>
     </Box>
   );
