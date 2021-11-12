@@ -1,16 +1,23 @@
-import { Container, Grid, Stack, Typography } from "@mui/material";
+// React
 import React from "react";
 
+// Modules from Material UI
+import { Container, Grid, Stack, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+
+// About image
 import AboutImage from "../../assets/about-concept-img.png";
 
+// Icons from react icons
 import { BsFillHandIndexFill } from "react-icons/bs";
 import { FaFlag } from "react-icons/fa";
 import { FaMountain } from "react-icons/fa";
-import { Box } from "@mui/system";
 
+// Main About Component
 const About = () => {
   return (
     <Container sx={{ mb: 10 }}>
+      {/* Section Title */}
       <Typography
         sx={{ fontWeight: 700, textAlign: "center", mb: 3 }}
         variant="h3"
@@ -20,6 +27,7 @@ const About = () => {
       </Typography>
       <Grid container columns={{ xs: 1, md: 12 }} spacing={{ xs: 4, md: 8 }}>
         <Grid item xs={1} md={6}>
+          {/* Content image */}
           <img
             style={{
               width: "100%",
@@ -39,6 +47,7 @@ const About = () => {
               spacing={{ xs: 2, md: 4 }}
             >
               <Grid item xs={1} md={2}>
+                {/* Icon */}
                 <BsFillHandIndexFill
                   style={{
                     marginTop: "1rem",
@@ -48,6 +57,7 @@ const About = () => {
                 />
               </Grid>
               <Grid item xs={1} md={7}>
+                {/* Our Vision */}
                 <Stack>
                   <Typography variant="h6" component="div">
                     Our Vision
@@ -68,6 +78,7 @@ const About = () => {
               columns={{ xs: 1, md: 12 }}
               spacing={{ xs: 2, md: 4 }}
             >
+              {/* Icon */}
               <Grid item xs={1} md={2}>
                 <FaFlag
                   style={{
@@ -78,6 +89,7 @@ const About = () => {
                 />
               </Grid>
               <Grid item xs={1} md={7}>
+                {/* Our Mission */}
                 <Stack>
                   <Typography variant="h6" component="div">
                     Our Mission
@@ -97,6 +109,7 @@ const About = () => {
               columns={{ xs: 1, md: 12 }}
               spacing={{ xs: 2, md: 4 }}
             >
+              {/* Icon */}
               <Grid item xs={1} md={2}>
                 <FaMountain
                   style={{
@@ -107,6 +120,7 @@ const About = () => {
                 />
               </Grid>
               <Grid item xs={1} md={7}>
+                {/* Our Goals */}
                 <Stack>
                   <Typography variant="h6" component="div">
                     Our Goals
