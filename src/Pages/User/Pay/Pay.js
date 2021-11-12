@@ -1,6 +1,10 @@
+// Modules from Material UI
 import { Container, Typography } from "@mui/material";
+
+// React
 import React from "react";
 
+// Main Pay Component
 const Pay = () => {
   return (
     <Container>
