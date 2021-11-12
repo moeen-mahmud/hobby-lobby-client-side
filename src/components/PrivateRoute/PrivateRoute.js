@@ -1,10 +1,23 @@
-import { CircularProgress } from "@mui/material";
+// React
 import React from "react";
+
+// Loading spinner
+import { CircularProgress } from "@mui/material";
+
+// From React Router
 import { Redirect, Route } from "react-router";
+
+// Authenticating hook
 import useAuth from "../../hooks/useAuth";
 
+// Main Private Route Component
 function PrivateRoute({ children, ...rest }) {
+  // Getting data from the hook
   const { user, isLoading } = useAuth();
+
+  // Check the user state change and show
+  // the loader for holding the state
+
   if (isLoading) {
     return (
       <CircularProgress
@@ -17,6 +30,8 @@ function PrivateRoute({ children, ...rest }) {
       />
     );
   }
+
+  // This will render for every cases
   return (
     <Route
       {...rest}
