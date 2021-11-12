@@ -1,4 +1,7 @@
+// React
 import * as React from "react";
+
+// Modules from Material UI
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
@@ -19,7 +22,7 @@ import Fade from "@mui/material/Fade";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 
-// Icons
+// Icons from Material UI
 import MenuIcon from "@mui/icons-material/Menu";
 import PaymentIcon from "@mui/icons-material/Payment";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
@@ -35,20 +38,30 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 // React Router
 import { useHistory, useRouteMatch, Switch, Route } from "react-router";
 
-// User pages
+// Dashboard default page
+import DashboardHome from "../DashboardHome/DashboardHome";
+
+// User components
 import UserOrders from "../User/UserOrders/UserOrders";
 import Pay from "../User/Pay/Pay";
 import UserReviews from "../User/UserReviews/UserReviews";
-import DashboardHome from "../DashboardHome/DashboardHome";
+
+// Admin components
 import ManageOrders from "../Admin/ManageOrders/ManageOrders";
 import AddProduct from "../Admin/AddProduct/AddProduct";
 import MakeAdmin from "../Admin/MakeAdmin/MakeAdmin";
 import ManageProducts from "../Admin/ManageProducts/ManageProducts";
+
+// Private Admin Route
 import AdminRoute from "../Admin/AdminRoute/AdminRoute";
+
+// Hooks for auth
 import useAuth from "../../hooks/useAuth";
 
+// Setting the drawer width
 const drawerWidth = 230;
 
+// Style for modal
 const style = {
   position: "absolute",
   top: "50%",
@@ -61,23 +74,28 @@ const style = {
   p: 4,
 };
 
+// Main Dashboard Component
 function Dashboard(props) {
+  // Getting auth related information
   const { admin, logOut } = useAuth();
+
   // React Router
   const history = useHistory();
   let { path, url } = useRouteMatch();
 
-  // Responsivness
+  // For responsivness
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  // Modal
+  // State for Modal
   const [openModal, setOpenModal] = React.useState(false);
 
+  // Drawer toggler handler
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  // Drawer component
   const drawer = (
     <div>
       <Toolbar />
@@ -91,13 +109,14 @@ function Dashboard(props) {
         Back to home
       </Button>
       <List>
-        {/* Will add a active class like nanote later */}
+        {/* Dashboard Home */}
         <ListItem onClick={() => history.push(`${url}`)} button>
           <ListItemIcon>
             <DashboardIcon style={{ color: "#4caf50" }} />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
         </ListItem>
+        {/* Showing the following list item if the user is an admin */}
         {admin ? (
           <>
             <ListItem
@@ -133,6 +152,7 @@ function Dashboard(props) {
           </>
         ) : (
           <>
+            {/* Show for general users */}
             <ListItem onClick={() => history.push(`${url}/user-orders`)} button>
               <ListItemIcon>
                 <ShoppingBasketIcon style={{ color: "#4caf50" }} />
@@ -153,6 +173,7 @@ function Dashboard(props) {
             </ListItem>
           </>
         )}
+        {/* Show for everyone */}
         <ListItem onClick={() => setOpenModal(true)} button>
           <ListItemIcon>
             <LogoutIcon style={{ color: "#4caf50" }} />
@@ -164,12 +185,14 @@ function Dashboard(props) {
     </div>
   );
 
+  // Getting the window change
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
+      {/* Top App Bar */}
       <AppBar
         position="fixed"
         sx={{
@@ -185,7 +208,7 @@ function Dashboard(props) {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <MenuIcon />
+            <MenuIcon /> {/* Menu Icon */}
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Dashboard
@@ -197,14 +220,14 @@ function Dashboard(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        {/* Drawer component */}
         <Drawer
           container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -239,6 +262,7 @@ function Dashboard(props) {
         }}
       >
         <Toolbar />
+        {/* Routes for general users */}
         <Switch>
           <Route exact path={path}>
             <DashboardHome></DashboardHome>
@@ -252,6 +276,7 @@ function Dashboard(props) {
           <Route path={`${path}/review`}>
             <UserReviews></UserReviews>
           </Route>
+          {/* Routes for admins */}
           <Route path={`${path}/manage-orders`}>
             <ManageOrders></ManageOrders>
           </Route>
@@ -266,6 +291,7 @@ function Dashboard(props) {
           </AdminRoute>
         </Switch>
       </Box>
+      {/* Modal */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -301,11 +327,8 @@ function Dashboard(props) {
   );
 }
 
+// Passing the window props
 Dashboard.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 
