@@ -22,7 +22,6 @@ const Product = ({ product }) => {
     axios
       .get(`https://morning-scrubland-84603.herokuapp.com/products/${id}`)
       .then((res) => {
-        console.log(res.data);
         history.push(`/purchase/${id}`);
       });
   };

@@ -45,7 +45,6 @@ const Purchase = () => {
     axios
       .get(`https://morning-scrubland-84603.herokuapp.com/products/${id}`)
       .then((res) => {
-        console.log(res.data);
         setOrder(res.data);
       });
   }, [id]);

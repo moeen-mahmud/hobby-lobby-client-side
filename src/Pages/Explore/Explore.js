@@ -18,7 +18,6 @@ const Explore = () => {
     axios
       .get("https://morning-scrubland-84603.herokuapp.com/products")
       .then((res) => {
-        console.log(res.data);
         setProducts(res.data);
       });
   }, []);

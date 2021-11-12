@@ -11,7 +11,6 @@ const ReviewContainer = () => {
     axios
       .get("https://morning-scrubland-84603.herokuapp.com/reviews")
       .then((res) => {
-        console.log(res.data);
         setReviews(res.data);
       });
   }, []);
