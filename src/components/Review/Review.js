@@ -1,3 +1,7 @@
+// React
+import React from "react";
+
+// Modules from Material UI
 import {
   Avatar,
   Card,
@@ -7,12 +11,13 @@ import {
   Rating,
   Typography,
 } from "@mui/material";
-import React from "react";
 
+// Main Review Component
 const Review = ({ review }) => {
   return (
     <Grid item xs={1} md={4}>
       <Card>
+        {/* Render if the user has avatar image */}
         {review.image ? (
           <CardHeader
             avatar={<Avatar src={review.image} />}
@@ -22,6 +27,7 @@ const Review = ({ review }) => {
             }
           />
         ) : (
+          // Render if the user has no avatar image
           <CardHeader
             avatar={<Avatar>{review?.name.slice(0, 1)}</Avatar>}
             title={review.name}
@@ -30,6 +36,7 @@ const Review = ({ review }) => {
             }
           />
         )}
+        {/* Content */}
         <CardContent>
           <Typography variant="body1" color="text.secondary">
             {review.description}
