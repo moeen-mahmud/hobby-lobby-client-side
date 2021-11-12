@@ -1,3 +1,4 @@
+// Modules from Material UI
 import {
   Alert,
   Button,
@@ -10,21 +11,36 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+
+// Axios
 import axios from "axios";
+
+// React and necessary hook
 import React, { useState } from "react";
+
+// Hooks for getting auth info
 import useAuth from "../../../hooks/useAuth";
 
+// Main User Review Component
 const UserReviews = () => {
+  // Getting user info from the hook
   const { user } = useAuth();
+
+  // State for rating value
   const [ratingValue, setRatingValue] = useState(0);
+
+  // State for storing review description
   const [description, setDescription] = useState("");
 
+  // State for Snackbar
   const [openSnackBar, setOpenSnackBar] = useState(false);
 
+  // Getting the review
   const handleUserInfo = (e) => {
     setDescription(e.target.value);
   };
 
+  // Function for submitting the review
   const handleSubmitReview = (e) => {
     e.preventDefault();
     axios
@@ -37,7 +53,7 @@ const UserReviews = () => {
       .then((res) => {
         if (res.data.insertedId) {
           setRatingValue(0);
-          setOpenSnackBar(true);
+          setOpenSnackBar(true); //Showing Snackbar
           window.location.reload();
         }
       });
@@ -49,6 +65,7 @@ const UserReviews = () => {
 
   return (
     <Container>
+      {/* Section title */}
       <Typography sx={{ mb: 3 }} variant="h4">
         Write a review for us!
       </Typography>
@@ -56,6 +73,7 @@ const UserReviews = () => {
         <Grid item xs={12} md={6}>
           <form onSubmit={handleSubmitReview}>
             <Stack direction="column" spacing={3}>
+              {/* User name */}
               <TextField
                 type="text"
                 defaultValue={user.displayName}
@@ -63,6 +81,7 @@ const UserReviews = () => {
                 label="Name"
                 disabled
               />
+              {/* Rating */}
               <Stack direction="row">
                 <Typography component="legend">Your rating:</Typography>
                 <Rating
@@ -74,6 +93,7 @@ const UserReviews = () => {
                   }}
                 />
               </Stack>
+              {/* Review message */}
               <TextField
                 type="text"
                 variant="outlined"
@@ -94,6 +114,7 @@ const UserReviews = () => {
           </form>
         </Grid>
       </Grid>
+      {/* Snackbar */}
       <Snackbar
         open={openSnackBar}
         autoHideDuration={6000}
