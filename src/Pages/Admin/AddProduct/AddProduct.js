@@ -55,8 +55,8 @@ const AddProduct = () => {
             <Box
               sx={{ display: "flex", flexDirection: "column", gap: 1, mb: 4 }}
             >
-              <Typography variant="h5">Add a product</Typography>
-              <Typography variant="subtitle2" color="text.secondary">
+              <Typography variant="h4">Add a product</Typography>
+              <Typography variant="subtitle1" color="text.secondary">
                 Product will be added to the database
               </Typography>
             </Box>
