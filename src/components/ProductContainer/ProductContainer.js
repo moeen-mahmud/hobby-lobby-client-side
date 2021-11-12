@@ -1,27 +1,46 @@
+// React and necessary modules
+import React, { useEffect, useState } from "react";
+
+// Hook for using the theme properties
 import { useTheme } from "@emotion/react";
+
+// Modules from Material UI
 import { Container, Typography, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
+
+// Importing axios
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+
+// React Masonry CSS
 import Masonry from "react-masonry-css";
+
+// Location hook from React Router
 import { useLocation } from "react-router";
+
+// Product component
 import Product from "../Product/Product";
 
+// Setting the breakpoints for Masonry CSS
 const breakpoints = {
   default: 3,
   1100: 2,
   700: 1,
 };
 
+// Main Product Container Component
 const ProductContainer = () => {
+  // Declare state for storing all products
   const [products, setProducts] = useState([]);
 
+  // React router
   const location = useLocation();
   const homeLocation = location.pathname === "/" || "home";
 
+  // Declaring breakpoint for mobile
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+  // Fetching the data from the API
   useEffect(() => {
     axios
       .get("https://morning-scrubland-84603.herokuapp.com/products")
@@ -32,6 +51,7 @@ const ProductContainer = () => {
 
   return (
     <Container sx={{ my: 15, textAlign: "center" }}>
+      {/* Render only for mobile devices */}
       {isMobile ? (
         <>
           {location.pathname === "/" && (
@@ -48,6 +68,7 @@ const ProductContainer = () => {
           )}
         </>
       ) : (
+        // Render for every devices except mobile
         <>
           {location.pathname === "/" && (
             <Typography
@@ -65,6 +86,7 @@ const ProductContainer = () => {
       )}
 
       <Box>
+        {/* Checking the location and render a limited amount of product */}
         {homeLocation && (
           <Masonry
             breakpointCols={breakpoints}
