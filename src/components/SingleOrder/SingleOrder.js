@@ -1,12 +1,18 @@
-import { Button, Grid, Paper, Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import CancelIcon from "@mui/icons-material/Cancel";
-
+// React
 import React from "react";
 
+// Modules from Material UI
+import { Button, Grid, Paper, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+
+// Material Icon
+import CancelIcon from "@mui/icons-material/Cancel";
+
+// Main Single Order Component
 const SingleOrder = ({ order, handleDelete }) => {
   return (
     <Grid item xs={1} md={4}>
+      {/* Render for the User Order Page */}
       <Paper
         elevation={0}
         sx={{ boxShadow: "0px 15px 25px -4px rgba(30, 30, 60, 0.17)", p: 2 }}
@@ -27,7 +33,7 @@ const SingleOrder = ({ order, handleDelete }) => {
               </Typography>
             </Box>
             <Typography variant="subtitle1" component="div" my={2}>
-              Status:{" "}
+              Status: {/* Render based on order status */}
               {order.status === "Pending" ? (
                 <Typography variant="button" sx={{ color: "#ef6c00" }}>
                   {order.status}
