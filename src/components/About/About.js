@@ -1,7 +1,7 @@
 import { Container, Grid, Stack, Typography } from "@mui/material";
 import React from "react";
 
-import AboutImage from "../../assets/about-img.svg";
+import AboutImage from "../../assets/about-concept-img.png";
 
 import { BsFillHandIndexFill } from "react-icons/bs";
 import { FaFlag } from "react-icons/fa";
@@ -18,7 +18,19 @@ const About = () => {
       >
         About us
       </Typography>
-      <Grid container columns={{ xs: 1, md: 12 }}>
+      <Grid container columns={{ xs: 1, md: 12 }} spacing={{ xs: 4, md: 8 }}>
+        <Grid item xs={1} md={6}>
+          <img
+            style={{
+              width: "100%",
+              display: "block",
+              marginTop: "5rem",
+              borderRadius: "5px",
+            }}
+            src={AboutImage}
+            alt="Why Choose Us"
+          />
+        </Grid>
         <Grid item xs={1} md={6}>
           <Box sx={{ mt: 4 }}>
             <Grid
@@ -110,13 +122,6 @@ const About = () => {
               </Grid>
             </Grid>
           </Box>
-        </Grid>
-        <Grid item xs={1} md={6}>
-          <img
-            style={{ width: "60%", display: "block", margin: "8rem auto" }}
-            src={AboutImage}
-            alt="Why Choose Us"
-          />
         </Grid>
       </Grid>
     </Container>
