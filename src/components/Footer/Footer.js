@@ -1,3 +1,7 @@
+// React
+import React from "react";
+
+// Modules from Material UI
 import {
   Container,
   Grid,
@@ -9,17 +13,19 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
 
+// Icons from react icons
 import { AiFillYoutube } from "react-icons/ai";
 import { AiOutlineTwitter } from "react-icons/ai";
 import { AiFillInstagram } from "react-icons/ai";
 
+// Main Footer Component
 const Footer = () => {
   return (
     <Box sx={{ backgroundColor: "#4caf50", py: 10 }}>
       <Container>
         <Grid container columns={{ xs: 1, md: 12 }} spacing={{ xs: 6 }}>
+          {/* Branding column */}
           <Grid item xs={1} md={4}>
             <Typography
               style={{
@@ -42,6 +48,7 @@ const Footer = () => {
               Find us!
             </Typography>
             <Stack direction="row" justifyContent="flex-start" spacing={2}>
+              {/* Social Icons */}
               <IconButton>
                 <AiFillYoutube />
               </IconButton>
@@ -54,6 +61,7 @@ const Footer = () => {
             </Stack>
           </Grid>
           <Grid item xs={1} md={4}>
+            {/* Customer service column */}
             <Typography variant="h5" color="text.secondary">
               Customer Service
             </Typography>
@@ -74,6 +82,7 @@ const Footer = () => {
             </List>
           </Grid>
           <Grid item xs={1} md={4}>
+            {/* Links section */}
             <Typography variant="h5" color="text.secondary">
               Important Links
             </Typography>
@@ -100,6 +109,7 @@ const Footer = () => {
           </Grid>
         </Grid>
         <Box sx={{ mt: 4, textAlign: "center" }}>
+          {/* Copyright area */}
           <Typography color="text.secondary" variant="caption">
             copyright &copy; Hobby Lobby 2021
           </Typography>
