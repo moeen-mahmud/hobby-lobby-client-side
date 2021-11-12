@@ -1,6 +1,7 @@
+// React
 import React from "react";
 
-// Material
+// Modules from  Material UI
 import { Typography, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
 
@@ -17,7 +18,9 @@ const bgStyle = {
   backgroundSize: "cover",
 };
 
+// Main Banner
 const Banner = () => {
+  // Declaring breakpoint for mobile
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -30,6 +33,7 @@ const Banner = () => {
       }}
     >
       <Box sx={{ textAlign: "center", mt: 15 }}>
+        {/* Checking the view and set the view for mobile device */}
         {isMobile ? (
           <>
             <Typography
@@ -65,6 +69,7 @@ const Banner = () => {
           </>
         ) : (
           <>
+            {/* Render from medium devices to up */}
             <Typography
               variant="h2"
               sx={{
