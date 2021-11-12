@@ -23,21 +23,27 @@ const ManageProducts = () => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/products").then((res) => {
-      setProducts(res.data);
-    });
+    axios
+      .get("https://morning-scrubland-84603.herokuapp.com/products")
+      .then((res) => {
+        setProducts(res.data);
+      });
   }, []);
 
   const handleDeleteProduct = (id) => {
     const confirmation = window.confirm("Want to delete this product?");
     if (confirmation) {
-      axios.delete(`http://localhost:5000/products/${id}`).then((res) => {
-        if (res.data.deletedCount > 0) {
-          const newProducts = products.filter((product) => product._id !== id);
-          setProducts(newProducts);
-          setOpenSnackBar(true);
-        }
-      });
+      axios
+        .delete(`https://morning-scrubland-84603.herokuapp.com/products/${id}`)
+        .then((res) => {
+          if (res.data.deletedCount > 0) {
+            const newProducts = products.filter(
+              (product) => product._id !== id
+            );
+            setProducts(newProducts);
+            setOpenSnackBar(true);
+          }
+        });
     }
   };
 

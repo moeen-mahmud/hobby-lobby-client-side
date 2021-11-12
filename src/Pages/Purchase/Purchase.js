@@ -42,10 +42,12 @@ const Purchase = () => {
   const history = useHistory();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/products/${id}`).then((res) => {
-      console.log(res.data);
-      setOrder(res.data);
-    });
+    axios
+      .get(`https://morning-scrubland-84603.herokuapp.com/products/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        setOrder(res.data);
+      });
   }, [id]);
 
   const handleUserInfo = (e) => {
@@ -61,7 +63,7 @@ const Purchase = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:5000/orders", {
+      .post("https://morning-scrubland-84603.herokuapp.com/orders", {
         name: user.displayName,
         email: user.email,
         address: userInfo.address,

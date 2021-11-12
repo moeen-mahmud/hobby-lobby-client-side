@@ -19,11 +19,13 @@ const MakeAdmin = () => {
     e.preventDefault();
 
     const user = { email };
-    axios.put("http://localhost:5000/users", user).then((res) => {
-      if (res.data.modifiedCount > 0) {
-        handleOpenSnackBar();
-      }
-    });
+    axios
+      .put("https://morning-scrubland-84603.herokuapp.com/users", user)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          handleOpenSnackBar();
+        }
+      });
   };
 
   const handleOpenSnackBar = () => {

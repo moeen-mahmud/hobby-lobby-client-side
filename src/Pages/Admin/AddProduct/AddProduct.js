@@ -31,7 +31,7 @@ const AddProduct = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:5000/products", {
+      .post("https://morning-scrubland-84603.herokuapp.com/products", {
         productName: product.productName,
         productImage: product.productImage,
         productShorDesc: product.productShorDesc,

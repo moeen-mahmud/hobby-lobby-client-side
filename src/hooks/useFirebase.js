@@ -78,9 +78,11 @@ const useFirebase = () => {
   }, [auth]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/users/${user.email}`).then((res) => {
-      setAdmin(res.data.admin);
-    });
+    axios
+      .get(`https://morning-scrubland-84603.herokuapp.com/users/${user.email}`)
+      .then((res) => {
+        setAdmin(res.data.admin);
+      });
   }, [user.email]);
 
   const logOut = () => {
@@ -96,9 +98,11 @@ const useFirebase = () => {
 
   const saveUser = (email, displayName) => {
     const user = { email, displayName };
-    axios.post("http://localhost:5000/users", user).then((res) => {
-      console.log(res.data);
-    });
+    axios
+      .post("https://morning-scrubland-84603.herokuapp.com/users", user)
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   return {

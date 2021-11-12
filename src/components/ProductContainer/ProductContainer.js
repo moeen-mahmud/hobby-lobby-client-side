@@ -19,10 +19,12 @@ const ProductContainer = () => {
   const homeLocation = location.pathname === "/" || "home";
 
   useEffect(() => {
-    axios.get("http://localhost:5000/products").then((res) => {
-      console.log(res.data);
-      setProducts(res.data);
-    });
+    axios
+      .get("https://morning-scrubland-84603.herokuapp.com/products")
+      .then((res) => {
+        console.log(res.data);
+        setProducts(res.data);
+      });
   }, []);
 
   return (

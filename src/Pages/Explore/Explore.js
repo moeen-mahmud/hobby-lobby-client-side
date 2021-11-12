@@ -15,10 +15,12 @@ const breakpoints = {
 const Explore = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/products").then((res) => {
-      console.log(res.data);
-      setProducts(res.data);
-    });
+    axios
+      .get("https://morning-scrubland-84603.herokuapp.com/products")
+      .then((res) => {
+        console.log(res.data);
+        setProducts(res.data);
+      });
   }, []);
   return (
     <Box>

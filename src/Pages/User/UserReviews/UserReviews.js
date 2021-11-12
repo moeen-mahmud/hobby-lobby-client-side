@@ -28,7 +28,7 @@ const UserReviews = () => {
   const handleSubmitReview = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/reviews", {
+      .post("https://morning-scrubland-84603.herokuapp.com/reviews", {
         name: user.displayName,
         image: "",
         description: description,

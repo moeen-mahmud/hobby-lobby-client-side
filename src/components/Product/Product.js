@@ -19,10 +19,12 @@ const Product = ({ product }) => {
   } = product;
 
   const handleOrder = (id) => {
-    axios.get(`http://localhost:5000/products/${id}`).then((res) => {
-      console.log(res.data);
-      history.push(`/purchase/${id}`);
-    });
+    axios
+      .get(`https://morning-scrubland-84603.herokuapp.com/products/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        history.push(`/purchase/${id}`);
+      });
   };
 
   return (

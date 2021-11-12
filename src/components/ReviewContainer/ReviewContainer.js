@@ -8,10 +8,12 @@ const ReviewContainer = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/reviews").then((res) => {
-      console.log(res.data);
-      setReviews(res.data);
-    });
+    axios
+      .get("https://morning-scrubland-84603.herokuapp.com/reviews")
+      .then((res) => {
+        console.log(res.data);
+        setReviews(res.data);
+      });
   }, []);
 
   return (

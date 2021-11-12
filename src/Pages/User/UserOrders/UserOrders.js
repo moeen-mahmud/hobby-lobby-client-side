@@ -13,7 +13,9 @@ const UserOrders = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/orders?email=${user.email}`)
+      .get(
+        `https://morning-scrubland-84603.herokuapp.com/orders?email=${user.email}`
+      )
       .then((res) => {
         setOrders(res.data);
       });
@@ -22,13 +24,15 @@ const UserOrders = () => {
   const handleDelete = (id) => {
     const confirmation = window.confirm("Want to cancel this item?");
     if (confirmation) {
-      axios.delete(`http://localhost:5000/orders/${id}`).then((res) => {
-        if (res.data.deletedCount > 0) {
-          const newOrders = orders.filter((order) => order._id !== id);
-          setOrders(newOrders);
-          setOpenSnackBar(true);
-        }
-      });
+      axios
+        .delete(`https://morning-scrubland-84603.herokuapp.com/orders/${id}`)
+        .then((res) => {
+          if (res.data.deletedCount > 0) {
+            const newOrders = orders.filter((order) => order._id !== id);
+            setOrders(newOrders);
+            setOpenSnackBar(true);
+          }
+        });
     }
   };
 
