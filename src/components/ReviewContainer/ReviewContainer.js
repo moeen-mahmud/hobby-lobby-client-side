@@ -26,7 +26,7 @@ const ReviewContainer = () => {
   }, []);
 
   return (
-    <Container sx={{ mb: 15 }}>
+    <Container sx={{ mb: 15, position: "relative" }}>
       {/* Section title */}
       <Typography
         variant="h4"

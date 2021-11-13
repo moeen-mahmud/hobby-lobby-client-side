@@ -55,7 +55,7 @@ const ProductContainer = () => {
   }, []);
 
   return (
-    <Container sx={{ my: 15, textAlign: "center" }}>
+    <Container sx={{ my: 15, textAlign: "center", position: "relative" }}>
       {/* Render only for mobile devices */}
       {isMobile ? (
         <>
