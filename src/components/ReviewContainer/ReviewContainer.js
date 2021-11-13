@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 // Modules from Material UI
-import { Container, Grid, Typography } from "@mui/material";
+import { CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
 // Axios for data fetching
@@ -35,14 +35,29 @@ const ReviewContainer = () => {
       >
         Our Satisfied Customers Say...
       </Typography>
-      <Box>
-        {/* Map through the reviews data */}
-        <Grid container columns={{ xs: 1, md: 12 }} spacing={{ xs: 1, md: 6 }}>
-          {reviews.map((review) => (
-            <Review key={review._id} review={review}></Review>
-          ))}
-        </Grid>
-      </Box>
+      {reviews.length === 0 ? (
+        <CircularProgress
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            color: "#232832",
+          }}
+        />
+      ) : (
+        <Box>
+          {/* Map through the reviews data */}
+          <Grid
+            container
+            columns={{ xs: 1, md: 12 }}
+            spacing={{ xs: 1, md: 6 }}
+          >
+            {reviews.map((review) => (
+              <Review key={review._id} review={review}></Review>
+            ))}
+          </Grid>
+        </Box>
+      )}
     </Container>
   );
 };

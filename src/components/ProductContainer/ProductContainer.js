@@ -5,7 +5,12 @@ import React, { useEffect, useState } from "react";
 import { useTheme } from "@emotion/react";
 
 // Modules from Material UI
-import { Container, Typography, useMediaQuery } from "@mui/material";
+import {
+  CircularProgress,
+  Container,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { Box } from "@mui/system";
 
 // Importing axios
@@ -84,21 +89,31 @@ const ProductContainer = () => {
           )}
         </>
       )}
-
-      <Box>
-        {/* Checking the location and render a limited amount of product */}
-        {homeLocation && (
-          <Masonry
-            breakpointCols={breakpoints}
-            className="my-masonry-grid"
-            columnClassName="my-masonry-grid_column"
-          >
-            {products.slice(0, 6).map((product) => (
-              <Product key={product._id} product={product}></Product>
-            ))}
-          </Masonry>
-        )}
-      </Box>
+      {products.length === 0 ? (
+        <CircularProgress
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            color: "#232832",
+          }}
+        />
+      ) : (
+        <Box>
+          {/* Checking the location and render a limited amount of product */}
+          {homeLocation && (
+            <Masonry
+              breakpointCols={breakpoints}
+              className="my-masonry-grid"
+              columnClassName="my-masonry-grid_column"
+            >
+              {products.slice(0, 6).map((product) => (
+                <Product key={product._id} product={product}></Product>
+              ))}
+            </Masonry>
+          )}
+        </Box>
+      )}
     </Container>
   );
 };
