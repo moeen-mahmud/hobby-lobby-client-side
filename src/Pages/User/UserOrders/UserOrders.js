@@ -117,7 +117,7 @@ const UserOrders = () => {
           severity="success"
           sx={{ width: "100%" }}
         >
-          Order has been deleted!
+          Order has been canceled!
         </Alert>
       </Snackbar>
     </Container>

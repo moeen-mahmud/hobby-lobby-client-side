@@ -99,6 +99,7 @@ const Purchase = () => {
       })
       .then((res) => {
         if (res.data.insertedId) {
+          window.alert("Order has been placed successfully!");
           history.push("/dashboard/user-orders");
         }
       });
