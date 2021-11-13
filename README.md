@@ -15,4 +15,4 @@ Here we provide 👇
 - Free lifetime services.
 - 100% customer satisfaction.
 
-<!-- ### Don't waste time for finding a good chair, just give us a try 🚀 -->
+### Don't waste time for finding a good chair, just give us a try 🚀
