@@ -1,18 +1,58 @@
-# Hobby Lobby | Your chair, your throne
+# Hobby Lobby
 
-Here you will find best budget friendly gaming chairs 🔥
+### A niche based website for finding good gaming chairs
 
-## [Live Preview](https://hobby-lobby-moeen.web.app/)
+## Table of Contents
 
-### Features
+- [Overview](#overview)
+  - [The Challenge](#the-challenge)
+  - [Desktop View](#desktop-view)
+  - [Links](#links)
+- [My Process](#my-process)
+  - [Built With](#built-with)
+  - [What I Learned](#what-i-learned)
+- [Useful Resources](#useful-resources)
+- [Author](#author)
 
-A gaming chair is as important as your gaming machine. But we all are overlooking the matter. Sitting with right postures is important for you and your productivity.
-Here we provide 👇
+## Overview
 
-- Top quality handpicked gaming chairs for your comfort.
-- Uniqely designed chairs in low price.
-- Custom made chairs made out of your imagination.
-- Free lifetime services.
-- 100% customer satisfaction.
+### The Challenge
 
-### Don't waste time for finding a good chair, just give us a try 🚀
+- Niche based website
+- Fully responsive UI, implemented email and password authentication.
+- Different dashboard for both users and admins.
+- Users can create account, order any products and can write reviews.
+- The admins can make another person an admin, manage user orders, change their status, add a product.
+
+## Desktop View
+
+![Project Shot](./screenshot/hobby-lobby.png)
+
+### Links
+
+- [Live Preview](https://hobby-lobby-moeen.web.app/)
+- [Server-side Repo](https://github.com/moeen-mahmud/nanote-server)
+
+## My Process
+
+### Built With
+
+- **Front End**: Material UI, ReactJS
+- **Back End**: NodeJS, ExpressJS
+- **Technologies**: MongoDB, Firebase Authentication, Firebase Hosting, Heroku.
+
+### What I learned
+
+- How to give different role to the users and admins.
+- How to work with nested routes and how to create different routes role based routes.
+- How to create a basic admin panel with multiple actions.
+
+## Useful Resources
+
+- [React Documentation](https://reactjs.org/)
+- [Material UI Documentation](https://mui.com/)
+
+## Author
+
+- GitHub - [moeen-mahmud](https://github.com/moeen-mahmud)
+- Twitter - [moeen_mahmud](https://twitter.com/moeen_mahmud)
